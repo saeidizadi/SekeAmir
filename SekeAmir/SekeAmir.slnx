@@ -1,1 +1,7 @@
-<Solution />
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Web/">
+    <Project Path="SekeAmir.Web/SekeAmir.Web.csproj" />
+  </Folder>
+  <Folder Name="/test/" />
+</Solution>
