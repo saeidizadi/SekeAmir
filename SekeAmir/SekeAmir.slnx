@@ -1,5 +1,9 @@
 <Solution>
   <Folder Name="/src/" />
+  <Folder Name="/src/NewFolder1/" />
+  <Folder Name="/src/SekeAmir.Application/" />
+  <Folder Name="/src/SekeAmir.Domain/" />
+  <Folder Name="/src/SekeAmir.Infrastructure/" />
   <Folder Name="/src/Web/">
     <Project Path="SekeAmir.Web/SekeAmir.Web.csproj" />
   </Folder>
