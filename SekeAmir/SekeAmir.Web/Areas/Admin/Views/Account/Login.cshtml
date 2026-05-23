@@ -1,0 +1,233 @@
+﻿@model Application.DTOs.Admin.AdminLoginDto
+@{
+    ViewData["Title"] = "ورود به پنل مدیریت";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - سکه امیر</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css"/>
+    <link href="~/fonts/fontiran.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="~/css/login.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation"></div>
+
+    <!-- Floating Particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Logo Section -->
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <i class="bi bi-bank"></i>
+                </div>
+                <h1 class="logo-title">سکه امیر</h1>
+                <p class="logo-subtitle">ورود به پنل مدیریت</p>
+            </div>
+
+            <!-- Error Alert -->
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert-error">
+                    <i class="bi bi-exclamation-circle"></i>
+                    <span>@ViewBag.ErrorMessage</span>
+                </div>
+            }
+
+            <!-- Login Form -->
+            <form asp-action="Login" asp-controller="Account" method="post" id="loginForm">
+                @Html.AntiForgeryToken()
+
+                <!-- Username -->
+                <div class="form-group">
+                    <label class="form-label">نام کاربری</label>
+                    <div class="input-wrapper">
+                        <i class="bi bi-person input-icon"></i>
+                        <input type="text"
+                               class="form-control @(ViewData.ModelState["Username"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                               asp-for="Username"
+                               placeholder="نام کاربری را وارد کنید"
+                               autocomplete="username">
+                    </div>
+                    <span asp-validation-for="Username" class="invalid-feedback"></span>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label class="form-label">رمز عبور</label>
+                    <div class="input-wrapper">
+                        <i class="bi bi-lock input-icon"></i>
+                        <input type="password"
+                               class="form-control @(ViewData.ModelState["Password"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                               asp-for="Password"
+                               id="passwordInput"
+                               placeholder="رمز عبور را وارد کنید"
+                               autocomplete="current-password">
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <i class="bi bi-eye" id="toggleIcon"></i>
+                        </button>
+                    </div>
+                    <span asp-validation-for="Password" class="invalid-feedback"></span>
+                </div>
+
+                <!-- Captcha -->
+               @*  <div class="form-group">
+                    <label class="form-label">کد امنیتی</label>
+                    <div class="captcha-box">
+                        <div class="captcha-image" id="captchaText">@ViewBag.CaptchaCode</div>
+                        <button type="button" class="captcha-refresh" onclick="refreshCaptcha()">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                        <div class="captcha-input">
+                            <input type="text"
+                                   class="form-control @(ViewData.ModelState["CaptchaInput"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                                   asp-for="CaptchaInput"
+                                   placeholder="کد"
+                                   maxlength="5"
+                                   autocomplete="off">
+                        </div>
+                    </div>
+                    <span asp-validation-for="CaptchaInput" class="invalid-feedback"></span>
+                </div> *@
+
+                <!-- Remember & Forgot -->
+                @* <div class="form-options">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" asp-for="RememberMe" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">مرا به خاطر بسپار</label>
+                    </div>
+                    <a href="#" class="forgot-link">فراموشی رمز عبور</a>
+                </div> *@
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-login" id="submitBtn">
+                    <span class="btn-text">ورود به پنل</span>
+                </button>
+            </form>
+
+            <!-- Divider -->
+            <!-- Social Login -->
+            @* <div class="divider">
+                <div class="divider-line"></div>
+                <span class="divider-text">یا ورود با</span>
+                <div class="divider-line"></div>
+            </div> *@
+           @*  <div class="social-login">
+                <button class="btn-social" title="ورود با گوگل">
+                    <i class="bi bi-google"></i>
+                </button>
+                <button class="btn-social" title="ورود با مایکروسافت">
+                    <i class="bi bi-microsoft"></i>
+                </button>
+                <button class="btn-social" title="ورود با موبایل">
+                    <i class="bi bi-phone"></i>
+                </button>
+            </div> *@
+
+            <!-- Back to Home -->
+            <div class="back-home">
+                <a asp-action="Index" asp-controller="Home">
+                    <i class="bi bi-arrow-right"></i>
+                    بازگشت به صفحه اصلی
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    @* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Toggle Password Visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const toggleIcon = document.getElementById('toggleIcon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('bi-eye');
+                toggleIcon.classList.add('bi-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('bi-eye-slash');
+                toggleIcon.classList.add('bi-eye');
+            }
+        }
+
+        // Refresh Captcha
+        function refreshCaptcha() {
+            fetch('/Account/RefreshCaptcha')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('captchaText').textContent = data.captcha;
+                })
+                .catch(error => {
+                    // Fallback: Generate random captcha client-side for demo
+                    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+                    let captcha = '';
+                    for (let i = 0; i < 5; i++) {
+                        captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+                    }
+                    document.getElementById('captchaText').textContent = captcha;
+                });
+        }
+
+        // Form Submit Handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = submitBtn.querySelector('.btn-text');
+
+            // Show loading state
+            submitBtn.disabled = true;
+            btnText.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>در حال ورود...';
+
+            // Show overlay
+            document.getElementById('loadingOverlay').classList.add('show');
+        });
+
+        // Input Focus Animation
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+
+            input.addEventListener('blur', function() {
+                this.parentElement.classList.remove('focused');
+            });
+        });
+
+        // Auto-focus first input
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstInput = document.querySelector('.form-control');
+            if (firstInput) {
+                firstInput.focus();
+            }
+        });
+    </script>
+</body>
+</html>
