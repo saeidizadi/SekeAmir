@@ -1,0 +1,175 @@
+/* ============================================
+   Theme Variables - Easy to customize
+   ============================================ */
+
+/* Gold Theme (Default) */
+[data-theme="gold"] {
+    --primary: #D4AF37;
+    --primary-light: #FFD700;
+    --primary-dark: #B8860B;
+    --primary-rgb: 212, 175, 55;
+    
+    --secondary: #1a1a1a;
+    --secondary-light: #2d2d2d;
+    --secondary-dark: #0d0d0d;
+    
+    --accent: #C9A227;
+    --accent-light: #E8C547;
+    --accent-dark: #A68B1F;
+    
+    --background: #0f0f0f;
+    --background-light: #1a1a1a;
+    --background-card: #151515;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --text-muted: #6c6c6c;
+    
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    
+    --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
+    
+    --shadow-primary: 0 4px 20px rgba(212, 175, 55, 0.3);
+    --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.5);
+    
+    --border-color: rgba(212, 175, 55, 0.2);
+    --border-glow: rgba(212, 175, 55, 0.5);
+}
+
+/* Emerald Theme */
+[data-theme="emerald"] {
+    --primary: #2E8B57;
+    --primary-light: #50C878;
+    --primary-dark: #1E5631;
+    --primary-rgb: 46, 139, 87;
+    
+    --secondary: #1a1f1a;
+    --secondary-light: #2d352d;
+    --secondary-dark: #0d120d;
+    
+    --accent: #3CB371;
+    --accent-light: #66CDAA;
+    --accent-dark: #228B22;
+    
+    --background: #0a0f0a;
+    --background-light: #151a15;
+    --background-card: #121712;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #a8b8a8;
+    --text-muted: #5c6c5c;
+    
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    
+    --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(46, 139, 87, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
+    
+    --shadow-primary: 0 4px 20px rgba(46, 139, 87, 0.3);
+    --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.5);
+    
+    --border-color: rgba(46, 139, 87, 0.2);
+    --border-glow: rgba(46, 139, 87, 0.5);
+}
+
+/* Royal Blue Theme */
+[data-theme="royal"] {
+    --primary: #4169E1;
+    --primary-light: #6495ED;
+    --primary-dark: #27408B;
+    --primary-rgb: 65, 105, 225;
+    
+    --secondary: #1a1a2e;
+    --secondary-light: #2d2d4d;
+    --secondary-dark: #0d0d1a;
+    
+    --accent: #5B8DEE;
+    --accent-light: #87CEEB;
+    --accent-dark: #1E3A8A;
+    
+    --background: #0a0a14;
+    --background-light: #12121f;
+    --background-card: #10101a;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #a8b0c8;
+    --text-muted: #5c6480;
+    
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    
+    --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(65, 105, 225, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
+    
+    --shadow-primary: 0 4px 20px rgba(65, 105, 225, 0.3);
+    --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.5);
+    
+    --border-color: rgba(65, 105, 225, 0.2);
+    --border-glow: rgba(65, 105, 225, 0.5);
+}
+
+/* Ruby Red Theme */
+[data-theme="ruby"] {
+    --primary: #9B111E;
+    --primary-light: #E0115F;
+    --primary-dark: #722F37;
+    --primary-rgb: 155, 17, 30;
+    
+    --secondary: #1f1a1a;
+    --secondary-light: #352d2d;
+    --secondary-dark: #120d0d;
+    
+    --accent: #C41E3A;
+    --accent-light: #FF6B6B;
+    --accent-dark: #8B0000;
+    
+    --background: #0f0a0a;
+    --background-light: #1a1515;
+    --background-card: #151212;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #b8a8a8;
+    --text-muted: #6c5c5c;
+    
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    
+    --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(155, 17, 30, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
+    
+    --shadow-primary: 0 4px 20px rgba(155, 17, 30, 0.3);
+    --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.5);
+    
+    --border-color: rgba(155, 17, 30, 0.2);
+    --border-glow: rgba(155, 17, 30, 0.5);
+}
+
+/* ============================================
+   How to Add New Themes:
+   ============================================
+   
+   1. Copy one of the existing theme blocks above
+   2. Change the data-theme name: [data-theme="your-theme-name"]
+   3. Update all color values to match your desired theme
+   4. Add a button in _ThemeSwitcher.cshtml:
+      
+      <button class="btn btn-sm theme-btn" onclick="setTheme('your-theme-name')" title="نام تم">
+          <span class="theme-dot" style="background: linear-gradient(135deg, #color1, #color2);"></span>
+      </button>
+   
+   Key variables to customize:
+   - --primary: Main brand color
+   - --primary-light: Lighter variant for gradients
+   - --primary-dark: Darker variant for shadows
+   - --primary-rgb: RGB values for transparency effects
+   - --background: Page background
+   - --background-card: Card backgrounds
+   - --border-color: Border colors
+   
+   ============================================ */

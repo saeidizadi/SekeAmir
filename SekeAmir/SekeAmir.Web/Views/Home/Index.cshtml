@@ -2,7 +2,23 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Theme Switcher -->
+<partial name="_ThemeSwitcher" />
+
+<!-- Navigation -->
+<partial name="_Navigation" model="Model" />
+
+<!-- Hero Section -->
+<partial name="_HeroSection" model="Model" />
+
+<!-- Rates Section -->
+<partial name="_RatesSection" model="Model" />
+
+<!-- About Section -->
+<partial name="_AboutSection" model="Model" />
+
+<!-- Contact Section -->
+<partial name="_ContactSection" model="Model" />
+
+<!-- Footer -->
+<partial name="_Footer" model="Model" />

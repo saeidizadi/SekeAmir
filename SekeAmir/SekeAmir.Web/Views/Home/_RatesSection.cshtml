@@ -1,0 +1,270 @@
+@model ExchangeApp.Models.HomeViewModel
+@{
+    string FormatPrice(decimal price)
+    {
+        return price.ToString("N0").Replace(",", "٬");
+    }
+}
+
+<!-- Rates Section -->
+<section id="rates" class="rates-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="section-badge">نرخ‌های لحظه‌ای</span>
+            <h2 class="section-title">قیمت‌های به‌روز بازار</h2>
+            <p class="section-description">
+                تمامی قیمت‌ها به صورت لحظه‌ای و براساس نرخ بازار به‌روزرسانی می‌شوند
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Currency Rates -->
+            <div class="col-lg-6">
+                <div class="rate-card">
+                    <div class="rate-card-header">
+                        <div class="rate-icon currency-icon">
+                            <i class="bi bi-currency-exchange"></i>
+                        </div>
+                        <div>
+                            <h3 class="rate-card-title">نرخ ارز</h3>
+                            <span class="rate-card-subtitle">Currency Rates</span>
+                        </div>
+                        <span class="update-badge">
+                            <i class="bi bi-arrow-repeat"></i>
+                            به‌روز
+                        </span>
+                    </div>
+                    <div class="rate-card-body">
+                        <table class="rate-table">
+                            <thead>
+                                <tr>
+                                    <th>نام ارز</th>
+                                    <th>خرید</th>
+                                    <th>فروش</th>
+                                    <th>تغییر</th>
+                                </tr>
+                            </thead>
+                            <tbody id="currency-rates">
+                                @foreach (var currency in Model.CurrencyRates)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="currency-name">
+                                                <img src="https://flagcdn.com/24x18/@(currency.FlagCode).png" alt="@currency.NameEn">
+                                                <span>@currency.Name</span>
+                                            </div>
+                                        </td>
+                                        <td class="price-buy">@FormatPrice(currency.BuyPrice)</td>
+                                        <td class="price-sell">@FormatPrice(currency.SellPrice)</td>
+                                        <td class="@(currency.IsUp ? "change-up" : "change-down")">
+                                            <i class="bi bi-caret-@(currency.IsUp ? "up" : "down")-fill"></i> @currency.ChangePercent٪
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gold Bar Rates -->
+            <div class="col-lg-6">
+                <div class="rate-card">
+                    <div class="rate-card-header">
+                        <div class="rate-icon gold-icon">
+                            <i class="bi bi-box-seam"></i>
+                        </div>
+                        <div>
+                            <h3 class="rate-card-title">شمش طلا</h3>
+                            <span class="rate-card-subtitle">Gold Bars</span>
+                        </div>
+                        <span class="update-badge">
+                            <i class="bi bi-arrow-repeat"></i>
+                            به‌روز
+                        </span>
+                    </div>
+                    <div class="rate-card-body">
+                        <table class="rate-table">
+                            <thead>
+                                <tr>
+                                    <th>نوع شمش</th>
+                                    <th>وزن</th>
+                                    <th>قیمت (تومان)</th>
+                                    <th>تغییر</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gold-bar-rates">
+                                @foreach (var goldBar in Model.GoldBarRates)
+                                {
+                                    <tr>
+                                        <td><span class="item-badge gold-badge">شمش طلا</span></td>
+                                        <td>@goldBar.Weight</td>
+                                        <td class="price-sell">@FormatPrice(goldBar.Price)</td>
+                                        <td class="@(goldBar.IsUp ? "change-up" : "change-down")">
+                                            <i class="bi bi-caret-@(goldBar.IsUp ? "up" : "down")-fill"></i> @goldBar.ChangePercent٪
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coin Rates -->
+            <div class="col-lg-6">
+                <div class="rate-card">
+                    <div class="rate-card-header">
+                        <div class="rate-icon coin-icon">
+                            <i class="bi bi-coin"></i>
+                        </div>
+                        <div>
+                            <h3 class="rate-card-title">سکه طلا</h3>
+                            <span class="rate-card-subtitle">Gold Coins</span>
+                        </div>
+                        <span class="update-badge">
+                            <i class="bi bi-arrow-repeat"></i>
+                            به‌روز
+                        </span>
+                    </div>
+                    <div class="rate-card-body">
+                        <table class="rate-table">
+                            <thead>
+                                <tr>
+                                    <th>نوع سکه</th>
+                                    <th>خرید</th>
+                                    <th>فروش</th>
+                                    <th>تغییر</th>
+                                </tr>
+                            </thead>
+                            <tbody id="coin-rates">
+                                @foreach (var coin in Model.CoinRates)
+                                {
+                                    <tr>
+                                        <td><span class="item-badge coin-badge">@coin.Name</span></td>
+                                        <td class="price-buy">@FormatPrice(coin.BuyPrice)</td>
+                                        <td class="price-sell">@FormatPrice(coin.SellPrice)</td>
+                                        <td class="@(coin.IsUp ? "change-up" : "change-down")">
+                                            <i class="bi bi-caret-@(coin.IsUp ? "up" : "down")-fill"></i> @coin.ChangePercent٪
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Melted Gold -->
+            <div class="col-lg-6">
+                <div class="rate-card">
+                    <div class="rate-card-header">
+                        <div class="rate-icon melted-icon">
+                            <i class="bi bi-droplet-fill"></i>
+                        </div>
+                        <div>
+                            <h3 class="rate-card-title">طلای آبشده</h3>
+                            <span class="rate-card-subtitle">Melted Gold</span>
+                        </div>
+                        <span class="update-badge">
+                            <i class="bi bi-arrow-repeat"></i>
+                            به‌روز
+                        </span>
+                    </div>
+                    <div class="rate-card-body">
+                        <table class="rate-table">
+                            <thead>
+                                <tr>
+                                    <th>عیار</th>
+                                    <th>خرید (هر گرم)</th>
+                                    <th>فروش (هر گرم)</th>
+                                    <th>تغییر</th>
+                                </tr>
+                            </thead>
+                            <tbody id="melted-gold-rates">
+                                @foreach (var meltedGold in Model.MeltedGoldRates)
+                                {
+                                    <tr>
+                                        <td><span class="item-badge melted-badge">@meltedGold.Carat</span></td>
+                                        <td class="price-buy">@FormatPrice(meltedGold.BuyPrice)</td>
+                                        <td class="price-sell">@FormatPrice(meltedGold.SellPrice)</td>
+                                        <td class="@(meltedGold.IsUp ? "change-up" : "change-down")">
+                                            <i class="bi bi-caret-@(meltedGold.IsUp ? "up" : "down")-fill"></i> @meltedGold.ChangePercent٪
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parsian Coins -->
+            <div class="col-lg-6">
+                <div class="rate-card">
+                    <div class="rate-card-header">
+                        <div class="rate-icon parsian-icon">
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <div>
+                            <h3 class="rate-card-title">سکه پارسیان</h3>
+                            <span class="rate-card-subtitle">Parsian Coins</span>
+                        </div>
+                        <span class="update-badge">
+                            <i class="bi bi-arrow-repeat"></i>
+                            به‌روز
+                        </span>
+                    </div>
+                    <div class="rate-card-body">
+                        <table class="rate-table">
+                            <thead>
+                                <tr>
+                                    <th>وزن</th>
+                                    <th>خرید</th>
+                                    <th>فروش</th>
+                                    <th>تغییر</th>
+                                </tr>
+                            </thead>
+                            <tbody id="parsian-rates">
+                                @foreach (var parsian in Model.ParsianCoinRates)
+                                {
+                                    <tr>
+                                        <td><span class="item-badge parsian-badge">@parsian.Weight</span></td>
+                                        <td class="price-buy">@FormatPrice(parsian.BuyPrice)</td>
+                                        <td class="price-sell">@FormatPrice(parsian.SellPrice)</td>
+                                        <td class="@(parsian.IsUp ? "change-up" : "change-down")">
+                                            <i class="bi bi-caret-@(parsian.IsUp ? "up" : "down")-fill"></i> @parsian.ChangePercent٪
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Section -->
+            <div class="col-lg-6">
+                <div class="rate-card chart-card">
+                    <div class="rate-card-header">
+                        <div class="rate-icon chart-icon">
+                            <i class="bi bi-graph-up"></i>
+                        </div>
+                        <div>
+                            <h3 class="rate-card-title">نمودار نرخ ارز</h3>
+                            <span class="rate-card-subtitle">Exchange Rate Chart</span>
+                        </div>
+                        <div class="chart-controls">
+                            <button class="chart-btn active" data-period="week">هفته</button>
+                            <button class="chart-btn" data-period="month">ماه</button>
+                            <button class="chart-btn" data-period="year">سال</button>
+                        </div>
+                    </div>
+                    <div class="rate-card-body">
+                        <canvas id="rateChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

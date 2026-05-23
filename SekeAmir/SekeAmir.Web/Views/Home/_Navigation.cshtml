@@ -1,0 +1,37 @@
+@model ExchangeApp.Models.HomeViewModel
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <i class="bi bi-gem me-2 brand-icon"></i>
+            <span class="brand-text">@Model.CompanyName</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#hero">صفحه اصلی</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#rates">نرخ‌ها</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">درباره ما</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">تماس با ما</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center">
+                <span class="live-indicator me-3">
+                    <span class="live-dot"></span>
+                    به‌روزرسانی لحظه‌ای
+                </span>
+                @* <a href="#" class="btn btn-primary-custom">ورود / ثبت‌نام</a> *@
+            </div>
+        </div>
+    </div>
+</nav>

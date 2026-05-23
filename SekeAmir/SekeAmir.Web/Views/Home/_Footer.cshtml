@@ -1,0 +1,58 @@
+@model ExchangeApp.Models.HomeViewModel
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="footer-brand">
+                    <i class="bi bi-gem me-2"></i>
+                    <span>@Model.CompanyName</span>
+                </div>
+                <p class="footer-description">
+                    معتبرترین صرافی ایران با بیش از @Model.YearsOfExperience سال سابقه درخشان در خرید و فروش ارز، سکه و طلا
+                </p>
+                <div class="footer-social">
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-telegram"></i></a>
+                    <a href="#"><i class="bi bi-whatsapp"></i></a>
+                    <a href="#"><i class="bi bi-twitter-x"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <h5 class="footer-title">لینک‌های سریع</h5>
+                <ul class="footer-links">
+                    <li><a href="#hero">صفحه اصلی</a></li>
+                    <li><a href="#rates">نرخ‌ها</a></li>
+                    <li><a href="#about">درباره ما</a></li>
+                    <li><a href="#contact">تماس با ما</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2">
+                <h5 class="footer-title">خدمات</h5>
+                <ul class="footer-links">
+                    <li><a href="#">خرید ارز</a></li>
+                    <li><a href="#">فروش ارز</a></li>
+                    <li><a href="#">خرید سکه</a></li>
+                    <li><a href="#">خرید طلا</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="footer-title">نماد اعتماد</h5>
+                <div class="trust-badges">
+                    <div class="trust-badge">
+                        <i class="bi bi-patch-check-fill"></i>
+                        <span>نماد اعتماد الکترونیکی</span>
+                    </div>
+                    <div class="trust-badge">
+                        <i class="bi bi-bank"></i>
+                        <span>مجوز بانک مرکزی</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© ۱۴۰۳ @Model.CompanyName. تمامی حقوق محفوظ است.</p>
+        </div>
+    </div>
+</footer>

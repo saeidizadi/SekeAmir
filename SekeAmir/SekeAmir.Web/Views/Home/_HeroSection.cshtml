@@ -1,0 +1,76 @@
+@model ExchangeApp.Models.HomeViewModel
+
+<!-- Hero Section -->
+<section id="hero" class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="container position-relative">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-6">
+                <div class="hero-content">
+                    <span class="hero-badge">
+                        <i class="bi bi-shield-check"></i>
+                        معتبرترین صرافی ایران
+                    </span>
+                    <h1 class="hero-title">
+                        خرید و فروش
+                        <span class="text-gradient">ارز، سکه و طلا</span>
+                    </h1>
+                    <p class="hero-description">
+                        با بیش از @Model.YearsOfExperience سال سابقه درخشان در زمینه خرید و فروش ارز، سکه و طلا،
+                        ما افتخار می‌کنیم که یکی از معتبرترین صرافی‌های کشور هستیم.
+                        خدمات ما شامل بهترین نرخ‌ها و سریع‌ترین تراکنش‌ها می‌باشد.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="@Model.YearsOfExperience">0</span>
+                            <span class="stat-label">سال تجربه</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="@Model.HappyCustomers">0</span>
+                            <span class="stat-label">مشتری راضی</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="@Model.SuccessfulTransactions">0</span>
+                            <span class="stat-label">تراکنش موفق</span>
+                        </div>
+                    </div>
+                    <div class="hero-buttons">
+                        <a href="#rates" class="btn btn-primary-custom btn-lg">
+                            <i class="bi bi-currency-exchange me-2"></i>
+                            مشاهده نرخ‌ها
+                        </a>
+                        <a href="#contact" class="btn btn-outline-custom btn-lg">
+                            <i class="bi bi-telephone me-2"></i>
+                            تماس با ما
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-visual">
+                    <div class="floating-card card-1">
+                        <i class="bi bi-currency-dollar"></i>
+                        <span>دلار آمریکا</span>
+                        <strong id="hero-dollar">@Model.HeroDollarPrice</strong>
+                    </div>
+                    <div class="floating-card card-2">
+                        <i class="bi bi-coin"></i>
+                        <span>سکه امامی</span>
+                        <strong id="hero-coin">@Model.HeroCoinPrice</strong>
+                    </div>
+                    <div class="floating-card card-3">
+                        <i class="bi bi-gem"></i>
+                        <span>طلای ۱۸ عیار</span>
+                        <strong id="hero-gold">@Model.HeroGoldPrice</strong>
+                    </div>
+                    <div class="hero-circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-wave">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+            <path d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"></path>
+        </svg>
+    </div>
+</section>

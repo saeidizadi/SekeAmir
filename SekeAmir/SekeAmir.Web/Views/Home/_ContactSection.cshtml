@@ -1,0 +1,45 @@
+@model ExchangeApp.Models.HomeViewModel
+
+<!-- Contact Section -->
+<section id="contact" class="contact-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="section-badge">تماس با ما</span>
+            <h2 class="section-title">در خدمت شما هستیم</h2>
+            <p class="section-description">
+                برای مشاوره و انجام معاملات با ما در تماس باشید
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="bi bi-geo-alt"></i>
+                    </div>
+                    <h4>آدرس</h4>
+                    <p>@Model.Contact.Address</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="bi bi-telephone"></i>
+                    </div>
+                    <h4>تلفن</h4>
+                    <p dir="ltr">@Model.Contact.Phone1</p>
+                    <p dir="ltr">@Model.Contact.Phone2</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="bi bi-clock"></i>
+                    </div>
+                    <h4>ساعات کاری</h4>
+                    <p>@Model.Contact.WorkingHours</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
