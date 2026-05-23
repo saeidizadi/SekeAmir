@@ -1,9 +1,17 @@
 <Solution>
   <Folder Name="/src/" />
-  <Folder Name="/src/SekeAmir.Application/" />
-  <Folder Name="/src/SekeAmir.Domain/" />
-  <Folder Name="/src/SekeAmir.Infrastructure/" />
-  <Folder Name="/src/SekeAmir.Persistence/" />
+  <Folder Name="/src/SekeAmir.Application/">
+    <Project Path="Applocation/Application.csproj" Id="3cbe19d1-940f-4d42-a33e-180acb415384" />
+  </Folder>
+  <Folder Name="/src/SekeAmir.Domain/">
+    <Project Path="Domain/Domain.csproj" Id="228e7c19-fefc-4a33-98a7-cb9933cf7111" />
+  </Folder>
+  <Folder Name="/src/SekeAmir.Infrastructure/">
+    <Project Path="Infrastructure/Infrastructure.csproj" Id="87e12191-2358-4542-a091-8d2591650a1b" />
+  </Folder>
+  <Folder Name="/src/SekeAmir.Persistence/">
+    <Project Path="Persistence/Persistence.csproj" Id="a777e721-a4b6-4d44-8a6c-53dcdb1bc4ab" />
+  </Folder>
   <Folder Name="/src/SekeAmir.Web/">
     <Project Path="SekeAmir.Web/SekeAmir.Web.csproj" />
   </Folder>
