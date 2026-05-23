@@ -1,5 +1,246 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "سکه امیر | صرافی معتبر خرید و فروش سکه، طلا و ارز";
+    ViewBag.Theme = Model.CurrentTheme;
+}
+
+@section MetaTags {
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="سکه امیر | صرافی معتبر خرید و فروش سکه، طلا و ارز" />
+    <meta name="description" content="سکه امیر معتبرترین صرافی ایران با بیش از 20 سال سابقه در خرید و فروش سکه طلا، سکه پارسیان، شمش طلا، طلای آبشده، دلار، یورو و سایر ارزها با بهترین نرخ روز بازار. مشاوره رایگان و تحویل فوری." />
+    <meta name="keywords" content="سکه امیر, صرافی سکه امیر, خرید سکه, فروش سکه, خرید طلا, فروش طلا, قیمت سکه امامی, قیمت سکه بهار آزادی, قیمت دلار, قیمت یورو, سکه پارسیان, شمش طلا, طلای آبشده, صرافی معتبر تهران, صرافی آنلاین, نرخ ارز, قیمت طلای 18 عیار, خرید ارز, فروش ارز" />
+    <meta name="author" content="سکه امیر" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="language" content="Persian" />
+    <meta name="revisit-after" content="1 days" />
+    <meta name="rating" content="general" />
+    <link rel="canonical" href="https://sekkeamir.ir/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://sekkeamir.ir/" />
+    <meta property="og:title" content="سکه امیر | صرافی معتبر خرید و فروش سکه، طلا و ارز" />
+    <meta property="og:description" content="سکه امیر معتبرترین صرافی ایران با بیش از 20 سال سابقه در خرید و فروش سکه، طلا، دلار و ارز با بهترین نرخ روز بازار" />
+    <meta property="og:image" content="https://sekkeamir.ir/images/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="fa_IR" />
+    <meta property="og:site_name" content="سکه امیر" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://sekkeamir.ir/" />
+    <meta name="twitter:title" content="سکه امیر | صرافی معتبر خرید و فروش سکه، طلا و ارز" />
+    <meta name="twitter:description" content="سکه امیر معتبرترین صرافی ایران با بیش از 20 سال سابقه در خرید و فروش سکه، طلا، دلار و ارز" />
+    <meta name="twitter:image" content="https://sekkeamir.ir/images/twitter-image.jpg" />
+
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="IR-07" />
+    <meta name="geo.placename" content="Tehran" />
+    <meta name="geo.position" content="35.6892;51.3890" />
+    <meta name="ICBM" content="35.6892, 51.3890" />
+
+    <!-- Mobile App Links -->
+    <meta name="apple-mobile-web-app-title" content="سکه امیر" />
+    <meta name="application-name" content="سکه امیر" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#D4AF37" />
+    <meta name="msapplication-TileColor" content="#000000" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Structured Data - Organization -->
+    <script type="application/ld+json">
+        {
+            "@@context": "https://schema.org",
+            "@@type": "FinancialService",
+            "name": "سکه امیر",
+            "alternateName": "Sekke Amir Exchange",
+            "url": "https://sekkeamir.ir",
+            "logo": "https://sekkeamir.ir/images/logo.png",
+            "image": "https://sekkeamir.ir/images/storefront.jpg",
+            "description": "سکه امیر معتبرترین صرافی ایران با بیش از 20 سال سابقه در خرید و فروش سکه، طلا، دلار و ارز",
+            "telephone": "+98-21-12345678",
+            "email": "info@@sekkeamir.ir",
+            "address": {
+                "@@type": "PostalAddress",
+                "streetAddress": "خیابان فردوسی، پلاک 123",
+                "addressLocality": "تهران",
+                "addressRegion": "تهران",
+                "postalCode": "1234567890",
+                "addressCountry": "IR"
+            },
+            "geo": {
+                "@@type": "GeoCoordinates",
+                "latitude": 35.6892,
+                "longitude": 51.3890
+            },
+            "openingHoursSpecification": [
+                {
+                    "@@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday"],
+                    "opens": "09:00",
+                    "closes": "18:00"
+                },
+                {
+                    "@@type": "OpeningHoursSpecification",
+                    "dayOfWeek": "Thursday",
+                    "opens": "09:00",
+                    "closes": "14:00"
+                }
+            ],
+            "priceRange": "$$$",
+            "currenciesAccepted": "IRR, USD, EUR",
+            "paymentAccepted": "Cash, Bank Transfer",
+            "areaServed": {
+                "@@type": "Country",
+                "name": "Iran"
+            },
+            "sameAs": [
+                "https://instagram.com/sekkeamir",
+                "https://t.me/sekkeamir",
+                "https://wa.me/989123456789"
+            ],
+            "aggregateRating": {
+                "@@type": "AggregateRating",
+                "ratingValue": "4.9",
+                "reviewCount": "2850",
+                "bestRating": "5",
+                "worstRating": "1"
+            }
+        }
+    </script>
+
+    <!-- Structured Data - LocalBusiness -->
+    <script type="application/ld+json">
+        {
+            "@@context": "https://schema.org",
+            "@@type": "LocalBusiness",
+            "@@id": "https://sekkeamir.ir/#business",
+            "name": "صرافی سکه امیر",
+            "image": "https://sekkeamir.ir/images/logo.png",
+            "priceRange": "$$$",
+            "telephone": "+98-21-12345678",
+            "address": {
+                "@@type": "PostalAddress",
+                "streetAddress": "خیابان فردوسی، پلاک 123",
+                "addressLocality": "تهران",
+                "addressCountry": "IR"
+            }
+        }
+    </script>
+
+    <!-- Structured Data - WebSite with SearchAction -->
+    <script type="application/ld+json">
+        {
+            "@@context": "https://schema.org",
+            "@@type": "WebSite",
+            "name": "سکه امیر",
+            "url": "https://sekkeamir.ir",
+            "potentialAction": {
+                "@@type": "SearchAction",
+                "target": "https://sekkeamir.ir/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+    </script>
+
+    <!-- Structured Data - BreadcrumbList -->
+    <script type="application/ld+json">
+        {
+            "@@context": "https://schema.org",
+            "@@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@@type": "ListItem",
+                    "position": 1,
+                    "name": "صفحه اصلی",
+                    "item": "https://sekkeamir.ir/"
+                },
+                {
+                    "@@type": "ListItem",
+                    "position": 2,
+                    "name": "قیمت سکه",
+                    "item": "https://sekkeamir.ir/prices/coin"
+                },
+                {
+                    "@@type": "ListItem",
+                    "position": 3,
+                    "name": "قیمت طلا",
+                    "item": "https://sekkeamir.ir/prices/gold"
+                },
+                {
+                    "@@type": "ListItem",
+                    "position": 4,
+                    "name": "قیمت ارز",
+                    "item": "https://sekkeamir.ir/prices/currency"
+                }
+            ]
+        }
+    </script>
+
+    <!-- Structured Data - Product (Gold Coin) -->
+    <script type="application/ld+json">
+        {
+            "@@context": "https://schema.org",
+            "@@type": "Product",
+            "name": "سکه طلا امامی",
+            "description": "سکه طلای تمام بهار آزادی طرح امامی با عیار 900",
+            "brand": {
+                "@@type": "Brand",
+                "name": "بانک مرکزی ایران"
+            },
+            "offers": {
+                "@@type": "Offer",
+                "url": "https://sekkeamir.ir/buy/emami-coin",
+                "priceCurrency": "IRR",
+                "availability": "https://schema.org/InStock",
+                "seller": {
+                    "@@type": "Organization",
+                    "name": "سکه امیر"
+                }
+            }
+        }
+    </script>
+
+    <!-- Structured Data - FAQPage -->
+    <script type="application/ld+json">
+        {
+            "@@context": "https://schema.org",
+            "@@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@@type": "Question",
+                    "name": "قیمت سکه امامی امروز چند است؟",
+                    "acceptedAnswer": {
+                        "@@type": "Answer",
+                        "text": "قیمت سکه امامی به صورت لحظه‌ای در سایت سکه امیر به‌روزرسانی می‌شود. برای مشاهده آخرین قیمت به بخش قیمت‌ها مراجعه کنید."
+                    }
+                },
+                {
+                    "@@type": "Question",
+                    "name": "آیا امکان خرید آنلاین سکه و طلا وجود دارد؟",
+                    "acceptedAnswer": {
+                        "@@type": "Answer",
+                        "text": "بله، شما می‌توانید از طریق سایت سکه امیر سفارش خود را ثبت کرده و با مراجعه حضوری یا ارسال به آدرس، محصول خود را دریافت کنید."
+                    }
+                },
+                {
+                    "@@type": "Question",
+                    "name": "صرافی سکه امیر چه خدماتی ارائه می‌دهد؟",
+                    "acceptedAnswer": {
+                        "@@type": "Answer",
+                        "text": "صرافی سکه امیر خدمات خرید و فروش انواع سکه طلا، شمش طلا، طلای آبشده، سکه پارسیان، دلار، یورو و سایر ارزها را با بهترین نرخ روز ارائه می‌دهد."
+                    }
+                }
+            ]
+        }
+    </script>
 }
 
 <!-- Theme Switcher -->

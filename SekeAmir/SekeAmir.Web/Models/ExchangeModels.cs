@@ -66,7 +66,7 @@ namespace ExchangeApp.Models
     /// </summary>
     public class HomeViewModel
     {
-        public string CompanyName { get; set; } = "صرافی طلایی";
+        public string CompanyName { get; set; } = "سکه امیر";
         public string CurrentTheme { get; set; } = "gold";
         public int YearsOfExperience { get; set; } = 20;
         public int HappyCustomers { get; set; } = 50000;
