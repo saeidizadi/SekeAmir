@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SekeAmir.Web.Models;
 using System.Diagnostics;
-using ExchangeApp.Models;
 
 namespace SekeAmir.Web.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -14,8 +15,13 @@ namespace SekeAmir.Web.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+
+        
+
+
+
             var viewModel = new HomeViewModel
             {
                 CompanyName = "سکه صراف امیر",

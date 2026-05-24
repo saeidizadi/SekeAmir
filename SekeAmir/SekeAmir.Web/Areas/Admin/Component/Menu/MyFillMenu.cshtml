@@ -1,0 +1,38 @@
+﻿@using Domain.Account.Permission
+@model List<PermissionList>
+
+<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" @*style="overflow-y: scroll"*@>
+    @foreach (var item in Model.Where(p => p.ParentId == null))
+    {
+        <li class="nav-item has-treeview @(item.Descript == "سفارش غذا" ? "menu-open" : "")">
+
+
+                <a href="#" class="nav-link">
+
+                    <p>
+                        <i class="fa fa-archive nav-icon"></i>
+                            @item.Descript
+                            <img src="/Img/angle-left-svgrepo-com.svg" class="right" height="15" />
+                    </p>
+                </a>
+
+                <ul class="nav nav-treeview">
+                @foreach (var itemDetail in Model.Where(p => p.ParentId == item.Id))
+                        {
+                        <li class="nav-item">
+
+                            <a asp-action="@itemDetail.ActionName" asp-controller="@itemDetail.ControllerName" asp-area="@itemDetail.Area" class="nav-link">
+
+
+                                <p>@itemDetail.Descript </p>
+                            </a>
+                        </li>
+                        }
+
+                </ul>
+            </li>
+
+            }
+
+    <li class="text-center mt-5"><a class="text-center" href="/Logout"><img src="~/Img/power-button-svgrepo-com(1).svg" width="30" height="30" /></a></li>
+</ul>

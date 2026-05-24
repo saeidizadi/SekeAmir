@@ -1,4 +1,4 @@
-namespace ExchangeApp.Models
+namespace SekeAmir.Web.Models
 {
     /// <summary>
     /// مدل نرخ ارز
