@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Configurations;
 
@@ -11,9 +12,11 @@ using Persistence.Configurations;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(SekeAminContext))]
-    partial class SekeAminContextModelSnapshot : ModelSnapshot
+    [Migration("20260524144844_edit category")]
+    partial class editcategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,13 +178,14 @@ namespace Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<int>("ApiId")
-                        .HasColumnType("int")
-                        .HasAnnotation("Relational:JsonPropertyName", "id");
+                        .HasColumnType("int");
 
                     b.Property<string>("description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("iconImage")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("modifiedOn")
@@ -204,8 +208,11 @@ namespace Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("Categoryid")
                         .HasColumnType("int");
+
+                    b.Property<double?>("change")
+                        .HasColumnType("float");
 
                     b.Property<string>("iconImage")
                         .IsRequired()
@@ -218,6 +225,18 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double?>("price1")
+                        .HasColumnType("float");
+
+                    b.Property<double>("price2")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("priceLast1")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("priceLast2")
+                        .HasColumnType("float");
+
                     b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -228,11 +247,9 @@ namespace Persistence.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("Categoryid");
 
                     b.ToTable("Product");
-
-                    b.HasAnnotation("Relational:JsonPropertyName", "items");
                 });
 
             modelBuilder.Entity("Domain.Account.Permission.RolePermission", b =>
@@ -275,13 +292,9 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Shop.Product", b =>
                 {
-                    b.HasOne("Domain.Shop.Category", "Category")
+                    b.HasOne("Domain.Shop.Category", null)
                         .WithMany("products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
+                        .HasForeignKey("Categoryid");
                 });
 
             modelBuilder.Entity("Domain.Account.Permission.PermissionList", b =>

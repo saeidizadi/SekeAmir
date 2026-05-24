@@ -18,6 +18,7 @@ namespace SekeAmir.Web.MiddleWare
         }
 
         public async Task Invoke(HttpContext httpContext)
+        
         {
             var endpoint = httpContext.GetEndpoint();
             if (endpoint == null)

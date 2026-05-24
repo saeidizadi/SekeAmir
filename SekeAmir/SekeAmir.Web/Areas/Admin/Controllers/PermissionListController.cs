@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace PersonalSite.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [AllowAnonymous]
+    [Authorize]
     public class PermissionListController : BaseController
     {
         private IPermisionList _permisionList;

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace SekeAmir.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [AllowAnonymous]
+    [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()

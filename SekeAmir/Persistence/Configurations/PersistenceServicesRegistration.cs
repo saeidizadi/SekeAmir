@@ -40,9 +40,11 @@ public static class PersistenceServicesRegistration
         #endregion
         #region Shop
         services.AddScoped<ICategory, CategoryServices>();
+        services.AddScoped<IProduct, ProductServices>();
 
 
         services.AddScoped<IMaster<Category>, MasterServices<Category>>();
+        services.AddScoped<IMaster<Product>, MasterServices<Product>>();
         #endregion
 
         return services;

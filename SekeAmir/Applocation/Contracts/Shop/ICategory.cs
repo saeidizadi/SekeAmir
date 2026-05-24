@@ -11,6 +11,8 @@ namespace Application.Contracts.Shop
     {
         Task<bool> UpgradeCategory();
         Task<bool> IsExist(string Title);
-        Task<bool> InsertCategory(Category category);
+        Task<Category> InsertCategory(Category category);
+        Task<Category> GetByApiId(int  apiId);
+        Task<IEnumerable<Category>> GetAll();
     }
 }

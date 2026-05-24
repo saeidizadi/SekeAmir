@@ -22,15 +22,26 @@ namespace Persistence.Repository.Shop
             _master = master;
         }
 
-        public async Task<bool> InsertCategory(Category category)
+        public async Task<IEnumerable<Category>> GetAll()
         {
-            var obj= await _master.InsertAsync(category);
-            return obj != null;
+            return await _master.GetAllEfAsync();
+        }
+
+        public async Task<Category> GetByApiId(int apiId)
+        {
+            var obj= await _master.GetAllEfAsync(a => a.ApiId == apiId);
+            return obj?.FirstOrDefault();
+        }
+
+        public async Task<Category> InsertCategory(Category category)
+        {
+            var obj = await _master.InsertAsync(category);
+            return obj ;
         }
 
         public async Task<bool> IsExist(string Title)
         {
-            return await _master.GetAllAsQueryable(a=>a.title==Title).AnyAsync();
+            return await _master.GetAllAsQueryable(a => a.title == Title).AnyAsync();
         }
 
         public async Task<bool> UpgradeCategory()
@@ -46,7 +57,7 @@ namespace Persistence.Repository.Shop
                 PropertyNameCaseInsensitive = true
             };
             var data = JsonSerializer.Deserialize<ReciveDataApi>(json, options);
-            if(data == null || data.result == null)
+            if (data == null || data.result == null)
                 return false;
             foreach (var apiCategory in data.result)
             {
@@ -56,23 +67,23 @@ namespace Persistence.Repository.Shop
                 // اگر نبود اضافه کن
                 if (!dbCategory)
                 {
-                  var newcategory=  new Category
+                    var newcategory = new Category
                     {
-                      id=apiCategory.id,
-                      iconImage = apiCategory.iconImage,
-                      title = apiCategory.title,
+                        ApiId = apiCategory.id,
+                        iconImage = apiCategory.iconImage,
+                        title = apiCategory.title,
                         description = apiCategory.description?.ToString(),
                         modifiedOn = apiCategory.modifiedOn
                     };
-                  var result=await  InsertCategory(newcategory);
-                    if (!result)
+                    var result = await InsertCategory(newcategory);
+                    if (result == null)
                     {
                         return false;
                     }
 
                 }
 
-       
+
 
             }
             return true;

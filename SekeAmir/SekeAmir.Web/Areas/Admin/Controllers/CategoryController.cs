@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SekeAmir.Web.Areas.Admin.Controllers
 {
     [Area(AreaName.Admin)]
-    [AllowAnonymous]
+    [Authorize]
     public class CategoryController : BaseController
     {
         private readonly ICategory _category;
@@ -17,9 +17,9 @@ namespace SekeAmir.Web.Areas.Admin.Controllers
             _category = category;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await _category.GetAll());
         }
 
         public async Task<IActionResult> Create()

@@ -19,10 +19,9 @@ namespace Domain.Shop
         public string unit { get; set; }
         public string nickName { get; set; }
         public string iconImage { get; set; }
-        public double? price1 { get; set; }
-        public double price2 { get; set; }
-        public double? priceLast1 { get; set; }
-        public double? priceLast2 { get; set; }
-        public double? change { get; set; }
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        public Category Category{ get; set; }
+
     }
 }

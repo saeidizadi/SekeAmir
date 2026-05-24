@@ -29,6 +29,6 @@ namespace Domain.Account.Permission
         [DisplayName("ردیف")]
         public int? Status { get; set; }
       
-        public List<RolePermission> RolePermissions { get; set; }
+        public List<RolePermission>? RolePermissions { get; set; }
     }
 }
