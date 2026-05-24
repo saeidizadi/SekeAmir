@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Configurations;
 
@@ -11,9 +12,11 @@ using Persistence.Configurations;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(SekeAminContext))]
-    partial class SekeAminContextModelSnapshot : ModelSnapshot
+    [Migration("20260524165440_add productprice")]
+    partial class addproductprice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,6 +234,8 @@ namespace Persistence.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Product");
+
+                    b.HasAnnotation("Relational:JsonPropertyName", "items");
                 });
 
             modelBuilder.Entity("Domain.Shop.ProductPrice", b =>
@@ -250,11 +255,20 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("SellPrice")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("UpdateDateTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("inputType")
                         .HasColumnType("int");
@@ -307,7 +321,7 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Shop.Product", b =>
                 {
                     b.HasOne("Domain.Shop.Category", "Category")
-                        .WithMany()
+                        .WithMany("products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -341,6 +355,11 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Account.User", b =>
                 {
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("Domain.Shop.Category", b =>
+                {
+                    b.Navigation("products");
                 });
 
             modelBuilder.Entity("Domain.Shop.Product", b =>

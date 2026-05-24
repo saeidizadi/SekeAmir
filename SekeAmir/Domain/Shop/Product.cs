@@ -22,6 +22,7 @@ namespace Domain.Shop
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public Category Category{ get; set; }
+        public virtual ICollection<ProductPrice> ProductPrices { get; set; }
 
     }
 }

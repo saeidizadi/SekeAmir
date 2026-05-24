@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Domain.Common;
+using Domain.Dto.Shop;
 
 namespace Domain.Shop
 {
@@ -21,6 +22,6 @@ namespace Domain.Shop
         public string? iconImage { get; set; }
         public DateTime modifiedOn { get; set; }
         [JsonPropertyName("items")]
-        public virtual ICollection<Product> products{ get; set; }
+        public virtual ICollection<ApiProductItem> products{ get; set; }
     }
 }

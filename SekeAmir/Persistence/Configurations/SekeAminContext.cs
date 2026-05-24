@@ -1,5 +1,7 @@
-﻿using Domain.Account;
+﻿using System.Reflection.Emit;
+using Domain.Account;
 using Domain.Account.Permission;
+using Domain.Dto.Shop;
 using Domain.Shop;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +19,22 @@ namespace Persistence.Configurations
 
         #region Shop
         public virtual DbSet<Category> Categories{ get; set; }
+        public virtual DbSet<Product> Product{ get; set; }
+        public virtual DbSet<ProductPrice> ProductPrices{ get; set; }
         #endregion
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Ignore<ApiProductItem>();
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+
     }
-}
+
+
+
+    }
+

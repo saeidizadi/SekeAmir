@@ -9,40 +9,36 @@ using Application.Contracts.Shop;
 using Application.DTOs.Shop;
 using Domain.Shop;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Migrations;
 
 namespace Persistence.Repository.Shop
 {
-    public class ProductServices : IProduct
+    public class ProductPriceServices : IProductPrice
     {
-        private readonly IMaster<Product> _master;
-        private readonly ICategory _category;
+        private readonly IMaster<ProductPrice> _master;
+        private readonly ICategory _Category;
+        private readonly IProduct _product;
 
-        public ProductServices(IMaster<Product> master, ICategory category)
+        public ProductPriceServices(IMaster<ProductPrice> master, ICategory category, IProduct product)
         {
             _master = master;
-            _category = category;
+            _Category = category;
+            _product = product;
         }
 
-        public async Task<IEnumerable<Product>> GetAll()
+
+        public async Task<bool> BulkInsertPrice(List<ProductPrice> productPrices)
         {
-            return await _master.GetAllAsQueryable().Include(a => a.Category).ToListAsync();
+            return await _master.BulkeInsertAsync(productPrices);
         }
 
-        public async Task<Product> InsertProduct(Product product)
+        public async Task<IEnumerable<ProductPrice>> GetAllPrice()
         {
-           var obj= await _master.InsertAsync(product);
-            return obj;
+            return await _master.GetAllAsQueryable().Include(a => a.Product).ThenInclude(a => a.Category).OrderByDescending(a=>a.CreateAt).ToListAsync();
         }
 
-        public async Task<Product> IsExist(int ItemId)
+        public async Task<bool> GetData()
         {
-            var obj = await _master.GetAllEfAsync(a => a.itemId == ItemId);
-            return obj.FirstOrDefault();
-        }
-
-        public async Task<bool> UpgradeProduct()
-        {
+            List<ProductPrice> List = new List<ProductPrice>();
             using HttpClient client = new HttpClient();
             var response = await client.GetAsync("https://api.sarafiyaran.com/api/itemtag/starred/1");
             if (!response.IsSuccessStatusCode)
@@ -58,10 +54,10 @@ namespace Persistence.Repository.Shop
                 return false;
             foreach (var category in data.result)
             {
-                var DbCategory = await _category.GetByApiId(category.ApiId);
+                var DbCategory = await _Category.GetByApiId(category.ApiId);
                 if (DbCategory == null)
                 {
-                    DbCategory = await _category.InsertCategory(new Category()
+                    DbCategory = await _Category.InsertCategory(new Category()
                     {
 
                         ApiId = category.id,
@@ -73,10 +69,10 @@ namespace Persistence.Repository.Shop
                 }
                 foreach (var item in category.products)
                 {
-                    var Dbproduct = await IsExist(item.itemId);
-                    if (Dbproduct == null)
+                    var obj =await _product.IsExist(item.itemId);
+                    if (obj==null)
                     {
-                     await  InsertProduct(new Product
+                      obj=  await _product.InsertProduct(new Product
                         {
                             itemId = item.itemId,
                             title = item.title.Trim(),
@@ -86,9 +82,28 @@ namespace Persistence.Repository.Shop
                             CategoryId = DbCategory.id
                         });
                     }
+                    List.Add(new ProductPrice()
+                    {
+                        BuyPrice = item.price1 == null ? 0:item.price1.Value,
+                        SellPrice=item.price2==null?0:item.price2.Value,
+                        Change=item.change==null?0:item.change.Value,
+                        CreateAt=DateTime.Now,
+                        inputType=(int)Domain.InputType.api,
+                        ProductId=obj.id
+
+                    });
+
                 }
+                if (!await _master.BulkeInsertAsync(List))
+                    return false;
             }
             return true;
+        }
+
+        public async Task<bool> InsertPrice(ProductPrice price)
+        {
+            var obj= await _master.InsertAsync(price);
+            return obj!=null;   
         }
     }
 }

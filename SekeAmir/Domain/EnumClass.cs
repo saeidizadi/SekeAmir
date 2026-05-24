@@ -92,4 +92,9 @@ namespace Domain
         Diet,
         Shop
     }
+    public enum InputType
+    {
+        api=0,
+        local=1
+    }
 }

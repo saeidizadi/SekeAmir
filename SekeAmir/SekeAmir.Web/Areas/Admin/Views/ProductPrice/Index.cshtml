@@ -1,0 +1,74 @@
+﻿@using Domain.Shop
+@model IEnumerable<ProductPrice>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="card card-primary  text-center">
+    <div class="card-header">
+      قیمت ها
+    </div>
+
+    <div class="card-body">
+
+        <a class="btn btn-success" asp-action="GetData">دریافت از وب سرویس</a>
+
+        <a class="btn btn-primary" asp-action="Insert">ورود دستی</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>دسته بندی</th>
+                    <th>محصولات</th>
+                    <th>قیمت خرید</th>
+                    <th>قیمت فروش</th>
+                    <th>تغییر</th>
+                    <th>ساعت دریافت</th>
+                    <th>نوع ورود اطلاعات</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @{
+                    int i = 1;
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@i </td>
+                        <td>@item.Product.Category.title </td>
+                        <td>@item.Product.title </td>
+                        <td>@item.BuyPrice </td>
+                        <td>@item.SellPrice </td>
+                        <td>@item.Change </td>
+                        <td>@item.CreateAt </td>
+                        <td>@if(item.inputType==Domain.InputType.api)
+                            {
+                                <label>وب سرویس</label>
+                            }
+                            @if(item.inputType==Domain.InputType.local)
+                            {
+                            <label>دستی</label>
+                            }
+                           
+                        </td>
+
+
+                        @* <td> <a data-toggle="modal" data-target="#exampleModal" class="btn btn-info" onclick="View(@item.SystemMenuID)">ویرایش</a></td> *@
+
+
+
+
+                    </tr>
+                    i = i + 1;
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>
+

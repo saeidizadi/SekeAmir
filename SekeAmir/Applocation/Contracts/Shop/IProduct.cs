@@ -10,8 +10,8 @@ namespace Application.Contracts.Shop
     public interface IProduct
     {
         Task<bool> UpgradeProduct();
-        Task<bool> IsExist(int ItemId);
-        Task<bool> InsertProduct(Product product);
+        Task<Product> IsExist(int ItemId);
+        Task<Product> InsertProduct(Product product);
         Task<IEnumerable<Product>> GetAll();
     }
 }
