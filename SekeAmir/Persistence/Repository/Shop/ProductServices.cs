@@ -35,6 +35,12 @@ namespace Persistence.Repository.Shop
             throw new NotImplementedException();
         }
 
+        public async Task<Product> GetProductById(int Id)
+        {
+            var obj = await _master.GetAllEfAsync(a => a.id == Id);
+            return obj.FirstOrDefault();
+        }
+
         public async Task<Product> InsertProduct(Product product)
         {
            var obj= await _master.InsertAsync(product);
@@ -45,6 +51,12 @@ namespace Persistence.Repository.Shop
         {
             var obj = await _master.GetAllEfAsync(a => a.itemId == ItemId);
             return obj.FirstOrDefault();
+        }
+
+        public async Task<bool> updateProduct(Product product)
+        {
+            var obj = await _master.UpdateAsync(product);
+            return obj != null;
         }
 
         public async Task<bool> UpgradeProduct()

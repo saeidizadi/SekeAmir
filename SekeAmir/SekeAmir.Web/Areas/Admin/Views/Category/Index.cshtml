@@ -10,8 +10,9 @@
     </div>
 
     <div class="card-body">
+        <div class="d-flex justify-content-start">
         <a class="btn btn-success" asp-action="create">بروزرسانی</a>
-
+        </div>
         
     
         <table class="table">
@@ -37,15 +38,10 @@
                         <td>@item.ApiId </td>
                         <td>@item.title </td>
                         <td>@item.description </td>
-                        <td>@item.iconImage </td>
+                        <td><img src="@item.iconImage" style="width:50px" />  </td>
                         <td>@item.modifiedOn </td>
-
-
-                        @* <td> <a data-toggle="modal" data-target="#exampleModal" class="btn btn-info" onclick="View(@item.SystemMenuID)">ویرایش</a></td> *@
-
-
                         <td><a asp-action="Edit" asp-route-Id="@item.id" class="btn btn-info">ویرایش</a></td>
-                        <td><a asp-action="Delete" asp-route-id="@item.id" onclick="return confirm('ایا از حذف اطمینان دارید؟')" class="btn btn-danger">حذف</a></td>
+                
 
 
                     </tr>

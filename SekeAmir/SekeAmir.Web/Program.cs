@@ -1,15 +1,20 @@
 using Application.Configurations;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Persistence.Configurations;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
 builder.Services.ConfigurePersistenceServices(builder.Configuration);
 builder.Services.ConfigureApplicationServices();
+builder.Services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.All, }));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
 
 builder.Services.AddSession(options =>
 {

@@ -33,6 +33,12 @@ namespace Persistence.Repository.Shop
             return obj?.FirstOrDefault();
         }
 
+        public async Task<Category> GetById(int id)
+        {
+            var obj = await _master.GetAllEfAsync(a => a.id == id);
+            return obj.FirstOrDefault() ;
+        }
+
         public async Task<Category> InsertCategory(Category category)
         {
             var obj = await _master.InsertAsync(category);
@@ -42,6 +48,12 @@ namespace Persistence.Repository.Shop
         public async Task<bool> IsExist(string Title)
         {
             return await _master.GetAllAsQueryable(a => a.title == Title).AnyAsync();
+        }
+
+        public async Task<bool> UpdateCastegory(Category category)
+        {
+        var obj= await _master.UpdateAsync(category);
+            return obj!=null;
         }
 
         public async Task<bool> UpgradeCategory()

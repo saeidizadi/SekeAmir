@@ -11,16 +11,24 @@
     </div>
 
     <div class="card-body">
+        <div class="d-flex align-items-center justify-content-start">
+            <!-- دکمه دریافت از وب سرویس -->
+            <a class="btn btn-success m-2" asp-action="GetData">دریافت از وب سرویس</a>
 
-        <a class="btn btn-success" asp-action="GetData">دریافت از وب سرویس</a>
+            <!-- دکمه ورود دستی -->
+            <a class="btn btn-primary m-2" asp-action="Insert">ورود دستی</a>
 
-        <a class="btn btn-primary" asp-action="Insert">ورود دستی</a>
-        <label  class="control-label"></label>
-        <select class="form-control myselect" 
-                data-url="@Url.Action("GetPricesByProduct", "ProductPrice", new { area = "Admin" })"
-                asp-items="ViewBag.Product" onchange="GetProductPriceByProductId(this)">
-            <option value="">لطفا یک گزینه را انتخاب نمائید .</option>
-        </select>
+            <!-- بخش محصول: لیبل و سلکت -->
+            <div class="d-flex align-items-center m-2">
+                <label class="control-label m-2">محصولات</label>
+                <select class="form-control myselect"
+                        data-url="@Url.Action("GetPricesByProduct", "ProductPrice", new { area = "Admin" })"
+                        asp-items="ViewBag.Product" onchange="GetProductPriceByProductId(this)">
+                    <option value="">لطفا یک گزینه را انتخاب نمائید .</option>
+                </select>
+            </div>
+        </div>
+
         <table class="table">
             <thead>
                 <tr>

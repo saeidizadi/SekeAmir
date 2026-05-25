@@ -15,5 +15,7 @@ namespace Application.Contracts.Shop
         Task<Product> InsertProduct(Product product);
         Task<IEnumerable<Product>> GetAll();
         Task<List<Product>> GetAllWithPrice(Expression<Func<Product, bool>> where = null);
+        Task<Product> GetProductById(int Id);
+        Task<bool> updateProduct(Product product);
     }
 }

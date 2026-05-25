@@ -14,5 +14,7 @@ namespace Application.Contracts.Shop
         Task<Category> InsertCategory(Category category);
         Task<Category> GetByApiId(int  apiId);
         Task<IEnumerable<Category>> GetAll();
+        Task<Category> GetById(int id);
+        Task<bool> UpdateCastegory(Category category);
     }
 }
