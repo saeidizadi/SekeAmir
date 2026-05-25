@@ -5,8 +5,8 @@ using System.Diagnostics;
 using Application.Features.Category.Request.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Components.Forms;
-using Domain.Dto.Shop;
 using PersianAssistant.Extensions;
+using Application.DTOs.Shop;
 
 namespace SekeAmir.Web.Controllers
 {

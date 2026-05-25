@@ -1,6 +1,6 @@
 ﻿using Application.Contracts.Shop;
+using Application.DTOs.Shop;
 using AutoMapper;
-using Domain.Dto.Shop;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Persistence.Extention;

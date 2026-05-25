@@ -2,9 +2,9 @@
 using Application.Contracts.Repository;
 using Application.Contracts.Shop;
 using Application.Contracts.Users;
+using Application.DTOs.Shop;
 using Domain.Account;
 using Domain.Account.Permission;
-using Domain.Dto.Shop;
 using Domain.Shop;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

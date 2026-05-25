@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Application.DTOs.main;
 using Domain;
-using Domain.Dto.ViewModel.main;
 using Microsoft.AspNetCore.Http;
 
 

@@ -7,7 +7,6 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Domain.Common;
-using Domain.Dto.Shop;
 
 namespace Domain.Shop
 {

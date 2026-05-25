@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.Shop;
-using Domain.Dto.Shop;
+using Application.DTOs.Shop;
 using Domain.Shop;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -1,0 +1,21 @@
+﻿using Domain.Tools;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace Application.DTOs.main
+{
+    public class UsualComentVM
+    {
+        [DisplayName("نام و نام خانوادگی")]
+        [Required(ErrorMessage = "وارد کردن {0} اجباری می باشد")]
+        public string Name { get; set; }
+        [DisplayName("موبایل")]
+        [Required(ErrorMessage = "وارد کردن {0} اجباری می باشد")]
+        [IranianPhoneNumber]
+        public string Mobile { get; set; }
+        [DisplayName("متن")]
+        [Required(ErrorMessage = "وارد کردن {0} اجباری می باشد")]
+        public string Text { get; set; }
+        public string status { get; set; }
+    }
+}

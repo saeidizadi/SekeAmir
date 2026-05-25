@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.DTOs.Shop;
 using Domain;
-using Domain.Dto.Shop;
 using Domain.Shop;
 
 namespace Application.Contracts.Shop

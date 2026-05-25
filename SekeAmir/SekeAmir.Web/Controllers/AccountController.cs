@@ -1,6 +1,6 @@
 ﻿using Application.Contracts.Users;
+using Application.DTOs.User;
 using Domain;
-using Domain.Dto.ViewModel.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;

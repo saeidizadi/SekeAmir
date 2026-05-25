@@ -1,5 +1,6 @@
 ﻿using Application.Contracts.Shop;
 using Application.Features.Category.Request.Queries;
+using Domain;
 using MediatR;
 using PersianAssistant.Extensions;
 using PersianAssistant.Models;
@@ -10,7 +11,7 @@ public class GetCategoryWithProductsRequestHandler(IProductPrice productPriceRep
 {
     public async Task<ServiceMessage> Handle(GetCategoryWithProductsRequest request, CancellationToken cancellationToken)
     {
-        var Product = await productPriceRepository.showAllPrices();
+        var Product = await productPriceRepository.showAllPrices(InputType.api);
         return ResponseManager.CustomResponse(1, "ok", Product);
     }
 }

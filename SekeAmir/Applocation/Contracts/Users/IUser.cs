@@ -1,7 +1,7 @@
 ﻿
 using Application.Contracts.Repository;
+using Application.DTOs.User;
 using Domain.Account;
-using Domain.Dto.ViewModel.User;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;

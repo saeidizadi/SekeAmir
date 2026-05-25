@@ -9,7 +9,6 @@ using Application.Contracts.Shop;
 using Application.DTOs.Shop;
 using Dapper;
 using Domain;
-using Domain.Dto.Shop;
 using Domain.Shop;
 using Microsoft.EntityFrameworkCore;
 

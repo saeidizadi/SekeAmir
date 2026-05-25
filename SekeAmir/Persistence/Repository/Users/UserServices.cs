@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.Repository;
 using Application.Contracts.Users;
+using Application.DTOs.User;
 using Domain.Account;
-using Domain.Dto.ViewModel.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
