@@ -21,6 +21,7 @@ namespace Persistence.Configurations
         public virtual DbSet<Category> Categories{ get; set; }
         public virtual DbSet<Product> Product{ get; set; }
         public virtual DbSet<ProductPrice> ProductPrices{ get; set; }
+        public virtual DbSet<ChangePrice> ChangePrices { get; set; }
         #endregion
 
 

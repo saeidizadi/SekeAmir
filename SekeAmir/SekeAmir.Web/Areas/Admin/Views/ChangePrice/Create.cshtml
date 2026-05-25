@@ -1,0 +1,61 @@
+﻿@model Domain.Shop.ChangePrice
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+<div class="col-md-12">
+    <div class="card card-success">
+        <div class="card-header">
+            <h3 class="card-title">قیمت جدید</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <form asp-action="Create" method="post">
+                        @Html.AntiForgeryToken()
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="ProductId" class="control-label"></label>
+                                    <select asp-for="ProductId" class="form-control myselect" asp-items="ViewBag.Product">
+                                        <option value="">لطفا یک گزینه را انتخاب نمائید .</option>
+                                    </select>
+                                    <span asp-validation-for="ProductId" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="BuyChange" class="control-label"></label>
+                                    <input asp-for="BuyChange" class="form-control" />
+                                    <span asp-validation-for="BuyChange" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="SellChange" class="control-label"></label>
+                                    <input asp-for="SellChange" class="form-control" />
+                                    <span asp-validation-for="SellChange" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+                        <div class="row">
+                            <input type="submit" value="ثبت" class="btn btn-success" />
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

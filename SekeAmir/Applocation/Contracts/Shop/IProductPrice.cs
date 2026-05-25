@@ -12,6 +12,8 @@ namespace Application.Contracts.Shop
         Task<bool> BulkInsertPrice(List<ProductPrice> productPrices);
         Task<bool> GetData();
         Task<IEnumerable<ProductPrice>> GetAllPrice();
+        Task<IEnumerable<ProductPrice>> GetPriceByProdictId(int ProductId);
+
         Task<bool> InsertPrice(ProductPrice price);
     }
 }

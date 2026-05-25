@@ -38,7 +38,7 @@ namespace Persistence.Repository.Shop
 
         public async Task<bool> GetData()
         {
-            List<ProductPrice> List = new List<ProductPrice>();
+          
             using HttpClient client = new HttpClient();
             var response = await client.GetAsync("https://api.sarafiyaran.com/api/itemtag/starred/1");
             if (!response.IsSuccessStatusCode)
@@ -67,6 +67,8 @@ namespace Persistence.Repository.Shop
                         modifiedOn = category.modifiedOn
                     });
                 }
+                List<ProductPrice> List = new List<ProductPrice>();
+
                 foreach (var item in category.products)
                 {
                     var obj =await _product.IsExist(item.itemId);
@@ -98,6 +100,11 @@ namespace Persistence.Repository.Shop
                     return false;
             }
             return true;
+        }
+
+        public async Task<IEnumerable<ProductPrice>> GetPriceByProdictId(int ProductId)
+        {
+           return await _master.GetAllAsQueryable(a=>a.ProductId== ProductId).Include(a=>a.Product).ToListAsync();
         }
 
         public async Task<bool> InsertPrice(ProductPrice price)

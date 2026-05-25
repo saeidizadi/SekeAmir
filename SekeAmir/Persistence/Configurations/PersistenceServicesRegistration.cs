@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Persistence.Repository;
 using Persistence.Repository.Shop;
 using Persistence.Repository.Users;
+using System.ComponentModel.Design;
 
 namespace Persistence.Configurations;
 
@@ -43,12 +44,12 @@ public static class PersistenceServicesRegistration
         services.AddScoped<ICategory, CategoryServices>();
         services.AddScoped<IProduct, ProductServices>();
         services.AddScoped<IProductPrice, ProductPriceServices>();
-
+        services.AddScoped<IChangePrice, ChangePriceServices>();
 
         services.AddScoped<IMaster<Category>, MasterServices<Category>>();
         services.AddScoped<IMaster<Product>, MasterServices<Product>>();
-        services.AddScoped<IMaster<Product>, MasterServices<Product>>();
         services.AddScoped<IMaster<ProductPrice>, MasterServices<ProductPrice>>();
+        services.AddScoped<IMaster<ChangePrice>, MasterServices<ChangePrice>>();
         #endregion
 
         return services;

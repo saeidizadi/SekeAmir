@@ -1,4 +1,5 @@
 ﻿@using Domain.Shop
+@using Persistence.Extention
 @model IEnumerable<ProductPrice>
 @{
     ViewData["Title"] = "Index";
@@ -14,7 +15,12 @@
         <a class="btn btn-success" asp-action="GetData">دریافت از وب سرویس</a>
 
         <a class="btn btn-primary" asp-action="Insert">ورود دستی</a>
-
+        <label  class="control-label"></label>
+        <select class="form-control myselect" 
+                data-url="@Url.Action("GetPricesByProduct", "ProductPrice", new { area = "Admin" })"
+                asp-items="ViewBag.Product" onchange="GetProductPriceByProductId(this)">
+            <option value="">لطفا یک گزینه را انتخاب نمائید .</option>
+        </select>
         <table class="table">
             <thead>
                 <tr>
@@ -29,40 +35,9 @@
                 </tr>
 
             </thead>
-            <tbody>
-                @{
-                    int i = 1;
-                }
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@i </td>
-                        <td>@item.Product.Category.title </td>
-                        <td>@item.Product.title </td>
-                        <td>@item.BuyPrice </td>
-                        <td>@item.SellPrice </td>
-                        <td>@item.Change </td>
-                        <td>@item.CreateAt </td>
-                        <td>@if(item.inputType==Domain.InputType.api)
-                            {
-                                <label>وب سرویس</label>
-                            }
-                            @if(item.inputType==Domain.InputType.local)
-                            {
-                            <label>دستی</label>
-                            }
-                           
-                        </td>
-
-
-                        @* <td> <a data-toggle="modal" data-target="#exampleModal" class="btn btn-info" onclick="View(@item.SystemMenuID)">ویرایش</a></td> *@
-
-
-
-
-                    </tr>
-                    i = i + 1;
-                }
+            <tbody id="PriceTableBody">
+                <partial name="_GetProductPriceByProductId" model="Model" />
+             
 
             </tbody>
         </table>
@@ -71,4 +46,6 @@
 
 
 </div>
-
+@section Scripts {
+    <script src="~/js/admin/SearchItem.js"></script>
+}

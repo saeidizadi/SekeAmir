@@ -1,0 +1,22 @@
+﻿@using Persistence.Extention
+@model IEnumerable<Domain.Shop.ProductPrice>
+@{
+    int i = 1;
+}
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@i </td>
+        <td>@item.Product.Category.title </td>
+        <td>@item.Product.title </td>
+        <td>@item.BuyPrice </td>
+        <td>@item.SellPrice </td>
+        <td>@item.Change </td>
+        <td>@item.CreateAt.ToPersianLong() </td>
+        <td>
+            @(item.inputType == Domain.InputType.api ? "وب سرویس" : "دستی")
+        </td>
+    </tr>
+    i++;
+}

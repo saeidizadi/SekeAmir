@@ -23,6 +23,7 @@ namespace SekeAmir.Web.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewBag.Product = new SelectList(await _product.GetAll(), "id", "title");
             return View(await _productPrice.GetAllPrice());
         }
         public async Task<IActionResult> GetData()
@@ -46,7 +47,7 @@ namespace SekeAmir.Web.Areas.Admin.Controllers
         {
             if(!ModelState.IsValid)
             {
-                ViewBag.Product = new SelectList(await _product.GetAll(), "id", "title");
+                ViewBag.Product = new SelectList(await _product.GetAll(), "id", "title",productPrice.ProductId);
                 return View(productPrice);
             }
             productPrice.Change = 0;
@@ -60,6 +61,11 @@ namespace SekeAmir.Web.Areas.Admin.Controllers
             }
             TempData[Error] = ErrorMessage;
             return RedirectToAction("Index");
+        }
+        public IActionResult GetPricesByProduct(int ProductId)
+        {
+          var model=  _productPrice.GetPriceByProdictId(ProductId);
+            return PartialView("_GetProductPriceByProductId", model);
         }
     }
 }
