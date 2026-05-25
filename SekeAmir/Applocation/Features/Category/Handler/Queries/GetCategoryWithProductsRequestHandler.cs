@@ -10,7 +10,7 @@ public class GetCategoryWithProductsRequestHandler(IProductPrice productPriceRep
 {
     public async Task<ServiceMessage> Handle(GetCategoryWithProductsRequest request, CancellationToken cancellationToken)
     {
-        var Product = await productPriceRepository.showAllPrices(request.inputType);
+        var Product = await productPriceRepository.showAllPrices();
         return ResponseManager.CustomResponse(1, "ok", Product);
     }
 }

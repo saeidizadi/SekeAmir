@@ -18,5 +18,6 @@ namespace Application.Contracts.Shop
 
         Task<bool> InsertPrice(ProductPrice price);
         Task<IEnumerable<ShowAllPricesVM>> showAllPrices(InputType inputType);
+        Task<List<ShowAllPricesVM>> ShowAllPrices();
     }
 }

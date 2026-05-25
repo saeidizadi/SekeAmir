@@ -35,9 +35,9 @@ namespace Persistence.Repository.Users
             return obj.Any();
         }
 
-      public  async Task<bool> ISExistEmailAsync(string Email)
+        public async Task<bool> ISExistEmailAsync(string Email)
         {
-            var obj =await _User.GetAllEfAsync(a => a.Email == StringTools.FixEmail(Email));
+            var obj = await _User.GetAllEfAsync(a => a.Email == StringTools.FixEmail(Email));
             return obj.Any();
         }
 
@@ -46,7 +46,7 @@ namespace Persistence.Repository.Users
             return await _User.InsertAsync(user);
         }
 
-       public async Task<User> LoginCheckAsync(LoginViewModel model)
+        public async Task<User> LoginCheckAsync(LoginViewModel model)
         {
             var a = PasswordHelper.EncodePasswordMD5(model.PassWord);
             var obj = await _User.GetAllEfAsync(a =>
@@ -57,7 +57,7 @@ namespace Persistence.Repository.Users
 
         public async Task<InformationUserViewModel> GetUserInformationAsync(string userName)
         {
-            var user =await GetUserByUserNameAsync(userName);
+            var user = await GetUserByUserNameAsync(userName);
             var infomation = new InformationUserViewModel()
             {
                 Email = user.Email,
@@ -108,18 +108,18 @@ namespace Persistence.Repository.Users
 
         public async Task<IEnumerable<ShowUserBrifViewModel>> GetPaggingUserAsync(int Page, int pagesize)
         {
-            var obj =await _User.GetPagingAsync(Page, pagesize);
-            return obj.Select(a => new ShowUserBrifViewModel() { Email = a.Email, UserName = a.UserName, UserId = a.UserId,FullName=a.FullName });
+            var obj = await _User.GetPagingAsync(Page, pagesize);
+            return obj.Select(a => new ShowUserBrifViewModel() { Email = a.Email, UserName = a.UserName, UserId = a.UserId, FullName = a.FullName });
         }
 
         public async Task<IEnumerable<ShowUserBrifViewModel>> GetAllAdminAsync()
         {
-            var obj = await _User.GetAllEfAsync(a => a.IsAdmin == true&&a.Email!="ali.mottaghi1991@gmail.com");
-            return obj.Select(a => new ShowUserBrifViewModel() { Email = a.Email, UserName = a.UserName, UserId = a.UserId , FullName = a.FullName });
+            var obj = await _User.GetAllEfAsync(a => a.IsAdmin == true && a.Email != "ali.mottaghi1991@gmail.com");
+            return obj.Select(a => new ShowUserBrifViewModel() { Email = a.Email, UserName = a.UserName, UserId = a.UserId, FullName = a.FullName });
         }
         public async Task<User> GetUserByUserId(int userId)
         {
-            var obj =  _User.GetAllAsQueryable(a => a.UserId == userId)
+            var obj = _User.GetAllAsQueryable(a => a.UserId == userId)
                 .Include(u => u.UserRoles)
                 .ThenInclude(ur => ur.Role)
                 .ThenInclude(r => r.RolePermissions)
@@ -129,7 +129,7 @@ namespace Persistence.Repository.Users
 
         public async Task<User> GetOrCreateUser(string phoneNumber)
         {
-            var user =await GetUserByUserNameAsync(phoneNumber);
+            var user = await GetUserByUserNameAsync(phoneNumber);
             if (user != null)
                 return user;
 
@@ -145,13 +145,13 @@ namespace Persistence.Repository.Users
                 ActiveCode = StringTools.GenerateUniqeCode()
             };
 
-            var result =await AddUserAsync(newUser);
-          await  _Role.UserRoleInsertAsync(new UserRole { RoleId = 4, UserId = result.UserId });
+            var result = await AddUserAsync(newUser);
+            await _Role.UserRoleInsertAsync(new UserRole { RoleId = 4, UserId = result.UserId });
 
             return result;
         }
 
-        public  async Task SignIn(HttpContext context, User user)
+        public async Task SignIn(HttpContext context, User user)
         {
             if (user.FullName == null)
             {
@@ -160,7 +160,7 @@ namespace Persistence.Repository.Users
             var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-            
+
             new Claim(ClaimTypes.Name, user.FullName),
                 new Claim(ClaimTypes.Role,"User")
         };
@@ -169,18 +169,18 @@ namespace Persistence.Repository.Users
             var principal = new ClaimsPrincipal(identity);
 
             var properties = new AuthenticationProperties { IsPersistent = true };
-          await  context.SignInAsync(principal, properties);
+            await context.SignInAsync(principal, properties);
         }
 
         public async Task<IEnumerable<ShowUserBrifViewModel>> GetAllUser()
         {
-            var obj= await _User.GetAllEfAsync(a=>a.IsAdmin==false);
+            var obj = await _User.GetAllEfAsync(a => a.IsAdmin == false);
             return obj.Select(x => new ShowUserBrifViewModel()
             {
                 UserName = x.UserName,
                 Email = x.Email,
                 UserId = x.UserId,
-                FullName=x.FullName
+                FullName = x.FullName
             });
         }
     }

@@ -38,12 +38,12 @@ namespace Persistence.Repository.Shop
 
         public async Task<IEnumerable<ProductPrice>> GetAllPrice()
         {
-            return await _master.GetAllAsQueryable().Include(a => a.Product).ThenInclude(a => a.Category).OrderByDescending(a=>a.CreateAt).ToListAsync();
+            return await _master.GetAllAsQueryable().Include(a => a.Product).ThenInclude(a => a.Category).OrderByDescending(a => a.CreateAt).ToListAsync();
         }
 
         public async Task<bool> GetData()
         {
-          
+
             using HttpClient client = new HttpClient();
             var response = await client.GetAsync("https://api.sarafiyaran.com/api/itemtag/starred/1");
             if (!response.IsSuccessStatusCode)
@@ -76,10 +76,10 @@ namespace Persistence.Repository.Shop
 
                 foreach (var item in category.products)
                 {
-                    var obj =await _product.IsExist(item.itemId);
-                    if (obj==null)
+                    var obj = await _product.IsExist(item.itemId);
+                    if (obj == null)
                     {
-                      obj=  await _product.InsertProduct(new Product
+                        obj = await _product.InsertProduct(new Product
                         {
                             itemId = item.itemId,
                             title = item.title.Trim(),
@@ -91,12 +91,12 @@ namespace Persistence.Repository.Shop
                     }
                     List.Add(new ProductPrice()
                     {
-                        BuyPrice = item.price1 == null ? 0:item.price1.Value,
-                        SellPrice=item.price2==null?0:item.price2.Value,
-                        Change=item.change==null?0:item.change.Value,
-                        CreateAt=DateTime.Now,
-                        inputType=(int)Domain.InputType.api,
-                        ProductId=obj.id
+                        BuyPrice = item.price1 == null ? 0 : item.price1.Value,
+                        SellPrice = item.price2 == null ? 0 : item.price2.Value,
+                        Change = item.change == null ? 0 : item.change.Value,
+                        CreateAt = DateTime.Now,
+                        inputType = (int)Domain.InputType.api,
+                        ProductId = obj.id
 
                     });
 
@@ -109,22 +109,29 @@ namespace Persistence.Repository.Shop
 
         public async Task<IEnumerable<ProductPrice>> GetPriceByProdictId(int ProductId)
         {
-           return await _master.GetAllAsQueryable(a=>a.ProductId== ProductId).Include(a=>a.Product).ToListAsync();
+            return await _master.GetAllAsQueryable(a => a.ProductId == ProductId).Include(a => a.Product).ToListAsync();
         }
 
         public async Task<bool> InsertPrice(ProductPrice price)
         {
-            var obj= await _master.InsertAsync(price);
-            return obj!=null;   
+            var obj = await _master.InsertAsync(price);
+            return obj != null;
         }
 
         public async Task<IEnumerable<ShowAllPricesVM>> showAllPrices(InputType inputType)
-            
-        { 
+        {
             DynamicParameters dynamicParameters = new DynamicParameters();
             dynamicParameters.Add("inputType", inputType, System.Data.DbType.Int32);
             var obj = await _Vm.GetAllAsync("showAllPrices", dynamicParameters);
             return obj;
+        }
+
+        public async Task<List<ShowAllPricesVM>> ShowAllPrices()
+        {
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            //dynamicParameters.Add("inputType", inputType, System.Data.DbType.Int32);
+            var obj = await _Vm.GetAllAsync("showAllPrices", dynamicParameters);
+            return obj.ToList();
         }
     }
 }

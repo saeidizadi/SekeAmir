@@ -15,19 +15,19 @@ namespace SekeAmir.Web.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            var res = await mediator.Send(new GetCategoryWithProductsRequest { inputType = Domain.InputType.api });
+            var res = await mediator.Send(new GetCategoryWithProductsRequest { });
             if (res.ErrorId < 0)
             {
                 return NotFound();
             }
-            var products = res.Result as IEnumerable<ShowAllPricesVM>;
+            var products = res.Result as List<ShowAllPricesVM>;
 
             var viewModel = new HomeViewModel
             {
                 CompanyName = "سکه صراف امیر",
                 CurrentTheme = "gold",
                 YearsOfExperience = 20,
-                HappyCustomers = 50000,
+                HappyCustomers = 5000,
                 SuccessfulTransactions = 1000000,
 
                 // نرخ‌های Hero (فعلاً استاتیک - میتونی بعداً از دیتای جدید هم بدست بیاری)
@@ -53,8 +53,8 @@ namespace SekeAmir.Web.Controllers
                         Name = p.ProductTitle,
                         NameEn = GetEnglishName(p.ProductTitle),
                         FlagCode = GetFlagCode(p.ProductTitle),
-                        BuyPrice = (long)p.FinalBuyPrice,
-                        SellPrice = (long)p.FinalSellPrice,
+                        BuyPrice = p.FinalBuyPrice,
+                        SellPrice = p.FinalSellPrice,
                         ChangePercent = p.buyChange,
                         IsUp = p.buyChange >= 0
                     }).ToList();
@@ -65,7 +65,7 @@ namespace SekeAmir.Web.Controllers
                     .Select(p => new GoldBarRate
                     {
                         Weight = p.ProductTitle,
-                        Price = (long)p.FinalSellPrice,
+                        Price = p.FinalSellPrice,
                         ChangePercent = p.SellChange,
                         IsUp = p.SellChange >= 0
                     }).ToList();
@@ -76,8 +76,8 @@ namespace SekeAmir.Web.Controllers
                     .Select(p => new CoinRate
                     {
                         Name = p.ProductTitle,
-                        BuyPrice = (long)p.FinalBuyPrice,
-                        SellPrice = (long)p.FinalSellPrice,
+                        BuyPrice = p.FinalBuyPrice,
+                        SellPrice = p.FinalSellPrice,
                         ChangePercent = p.buyChange,
                         IsUp = p.buyChange >= 0
                     }).ToList();
@@ -88,8 +88,8 @@ namespace SekeAmir.Web.Controllers
                     .Select(p => new MeltedGoldRate
                     {
                         Carat = p.ProductTitle,
-                        BuyPrice = (long)p.FinalBuyPrice,
-                        SellPrice = (long)p.FinalSellPrice,
+                        BuyPrice = p.FinalBuyPrice,
+                        SellPrice = p.FinalSellPrice,
                         ChangePercent = p.buyChange,
                         IsUp = p.buyChange >= 0
                     }).ToList();
@@ -100,8 +100,8 @@ namespace SekeAmir.Web.Controllers
                     .Select(p => new ParsianCoinRate
                     {
                         Weight = p.ProductTitle,
-                        BuyPrice = (long)p.FinalBuyPrice,
-                        SellPrice = (long)p.FinalSellPrice,
+                        BuyPrice = p.FinalBuyPrice,
+                        SellPrice = p.FinalSellPrice,
                         ChangePercent = p.buyChange,
                         IsUp = p.buyChange >= 0
                     }).ToList();
