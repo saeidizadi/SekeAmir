@@ -4,7 +4,7 @@ using Application.Contracts.Users;
 using Domain.Account.Permission;
 using Persistence.Extention;
 
-namespace PersonalSite.Areas.Admin.Component.Menu
+namespace SekeAmir.Web.Areas.Admin.Component.Menu
 {
     [Authorize]
     public class FillMenu : ViewComponent

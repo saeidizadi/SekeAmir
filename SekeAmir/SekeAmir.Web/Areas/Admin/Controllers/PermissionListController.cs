@@ -8,7 +8,7 @@ using Domain.Account.Permission;
 using Persistence.Extention;
 using Microsoft.AspNetCore.Authorization;
 
-namespace PersonalSite.Areas.Admin.Controllers
+namespace SekeAmir.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize]

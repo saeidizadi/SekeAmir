@@ -28,7 +28,7 @@ namespace SekeAmir.Web.Areas.Admin.Controllers
         }
         public async Task<IActionResult> GetData()
         {
-          if( await _productPrice.GetData())
+            if (await _productPrice.GetData())
             {
                 TempData[Success] = SuccessMessage;
                 return RedirectToAction("Index");
@@ -45,16 +45,16 @@ namespace SekeAmir.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Insert(ProductPrice productPrice)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                ViewBag.Product = new SelectList(await _product.GetAll(), "id", "title",productPrice.ProductId);
+                ViewBag.Product = new SelectList(await _product.GetAll(), "id", "title", productPrice.ProductId);
                 return View(productPrice);
             }
             productPrice.Change = 0;
             productPrice.inputType = Domain.InputType.local;
             productPrice.CreateAt = DateTime.Now;
-            var result=await _productPrice.InsertPrice(productPrice);
-            if(result)
+            var result = await _productPrice.InsertPrice(productPrice);
+            if (result)
             {
                 TempData[Success] = SuccessMessage;
                 return RedirectToAction("Index");
@@ -64,7 +64,7 @@ namespace SekeAmir.Web.Areas.Admin.Controllers
         }
         public IActionResult GetPricesByProduct(int ProductId)
         {
-          var model=  _productPrice.GetPriceByProdictId(ProductId);
+            var model = _productPrice.GetPriceByProdictId(ProductId);
             return PartialView("_GetProductPriceByProductId", model);
         }
     }
