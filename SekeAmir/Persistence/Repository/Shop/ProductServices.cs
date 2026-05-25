@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -27,6 +28,11 @@ namespace Persistence.Repository.Shop
         public async Task<IEnumerable<Product>> GetAll()
         {
             return await _master.GetAllAsQueryable().Include(a => a.Category).ToListAsync();
+        }
+
+        public async Task<List<Product>> GetAllWithPrice(Expression<Func<Product, bool>> where = null)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<Product> InsertProduct(Product product)

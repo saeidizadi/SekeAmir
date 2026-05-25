@@ -2,25 +2,21 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SekeAmir.Web.Models;
 using System.Diagnostics;
+using Application.Features.Category.Request.Queries;
+using MediatR;
 
 namespace SekeAmir.Web.Controllers
 {
     [AllowAnonymous]
-    public class HomeController : Controller
+    public class HomeController(IMediator mediator) : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
         public async Task<IActionResult> Index()
         {
-
-        
-
-
+            var res = await mediator.Send(new GetCategoryWithProductsRequest());
+            if (res.ErrorId < 0)
+            {
+                // TODO : Add Log Here
+            }
 
             var viewModel = new HomeViewModel
             {
