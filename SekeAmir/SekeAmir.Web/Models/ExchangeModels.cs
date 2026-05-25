@@ -73,9 +73,9 @@ namespace SekeAmir.Web.Models
         public long SuccessfulTransactions { get; set; } = 1000000;
 
         // Hero Section Prices
-        public string HeroDollarPrice { get; set; } = "۵۸,۵۰۰";
-        public string HeroCoinPrice { get; set; } = "۳۲,۰۰۰,۰۰۰";
-        public string HeroGoldPrice { get; set; } = "۲,۸۵۰,۰۰۰";
+        public string HeroDollarPrice { get; set; }
+        public string HeroCoinPrice { get; set; } 
+        public string HeroGoldPrice { get; set; }
 
         // Rate Lists
         public List<CurrencyRate> CurrencyRates { get; set; } = new();

@@ -6,6 +6,7 @@ using Application.Features.Category.Request.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Components.Forms;
 using Domain.Dto.Shop;
+using PersianAssistant.Extensions;
 
 namespace SekeAmir.Web.Controllers
 {
@@ -14,11 +15,13 @@ namespace SekeAmir.Web.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            var res = await mediator.Send(new GetCategoryWithProductsRequest { inputType=Domain.InputType.api});
+            var res = await mediator.Send(new GetCategoryWithProductsRequest { inputType = Domain.InputType.api });
             if (res.ErrorId < 0)
             {
                 return NotFound();
             }
+            var products = res.Result as IEnumerable<ShowAllPricesVM>;
+
             var viewModel = new HomeViewModel
             {
                 CompanyName = "سکه صراف امیر",
@@ -28,9 +31,9 @@ namespace SekeAmir.Web.Controllers
                 SuccessfulTransactions = 1000000,
 
                 // نرخ‌های Hero (فعلاً استاتیک - میتونی بعداً از دیتای جدید هم بدست بیاری)
-                HeroDollarPrice = "۵۸,۵۰۰",
-                HeroCoinPrice = "۳۲,۰۰۰,۰۰۰",
-                HeroGoldPrice = "۲,۸۵۰,۰۰۰",
+                HeroDollarPrice = ((double)products.FirstOrDefault(x => x.ProductId == 2).FinalSellPrice).Toman(),
+                HeroCoinPrice = ((double)products.FirstOrDefault(x => x.ProductId == 29).FinalSellPrice).Toman(),
+                HeroGoldPrice = ((double)products.FirstOrDefault(x => x.ProductId == 37).FinalSellPrice).Toman(),
 
                 // ویژگی‌ها
                 Features = GetFeatures(),
@@ -39,7 +42,6 @@ namespace SekeAmir.Web.Controllers
                 Contact = GetContactInfo()
             };
 
-            var products = res.Result as IEnumerable<ShowAllPricesVM>;
 
             if (products != null && products.Any())
             {
@@ -144,7 +146,7 @@ namespace SekeAmir.Web.Controllers
                 "درهم امارات" => "ae",
                 _ => ""
             };
-        }   
+        }
         private List<CurrencyRate> GetCurrencyRates()
         {
             return new List<CurrencyRate>
