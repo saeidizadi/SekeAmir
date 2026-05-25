@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using Application.Contracts.Repository;
 using Application.Contracts.Shop;
 using Application.DTOs.Shop;
+using Dapper;
+using Domain;
+using Domain.Dto.Shop;
 using Domain.Shop;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,12 +20,14 @@ namespace Persistence.Repository.Shop
         private readonly IMaster<ProductPrice> _master;
         private readonly ICategory _Category;
         private readonly IProduct _product;
+        private readonly IMaster<ShowAllPricesVM> _Vm;
 
-        public ProductPriceServices(IMaster<ProductPrice> master, ICategory category, IProduct product)
+        public ProductPriceServices(IMaster<ProductPrice> master, ICategory category, IProduct product, IMaster<ShowAllPricesVM> vm)
         {
             _master = master;
             _Category = category;
             _product = product;
+            _Vm = vm;
         }
 
 
@@ -111,6 +116,15 @@ namespace Persistence.Repository.Shop
         {
             var obj= await _master.InsertAsync(price);
             return obj!=null;   
+        }
+
+        public async Task<IEnumerable<ShowAllPricesVM>> showAllPrices(InputType inputType)
+            
+        { 
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("inputType", inputType, System.Data.DbType.Int32);
+            var obj = await _Vm.GetAllAsync("showAllPrices", dynamicParameters);
+            return obj;
         }
     }
 }

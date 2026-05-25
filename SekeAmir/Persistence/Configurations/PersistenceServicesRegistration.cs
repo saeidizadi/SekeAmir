@@ -4,6 +4,7 @@ using Application.Contracts.Shop;
 using Application.Contracts.Users;
 using Domain.Account;
 using Domain.Account.Permission;
+using Domain.Dto.Shop;
 using Domain.Shop;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -50,6 +51,10 @@ public static class PersistenceServicesRegistration
         services.AddScoped<IMaster<Product>, MasterServices<Product>>();
         services.AddScoped<IMaster<ProductPrice>, MasterServices<ProductPrice>>();
         services.AddScoped<IMaster<ChangePrice>, MasterServices<ChangePrice>>();
+
+
+
+        services.AddScoped<IMaster<ShowAllPricesVM>, MasterServices<ShowAllPricesVM>>();
         #endregion
 
         return services;

@@ -4,6 +4,9 @@ using SekeAmir.Web.Models;
 using System.Diagnostics;
 using Application.Features.Category.Request.Queries;
 using MediatR;
+using Domain.Shop;
+using Microsoft.AspNetCore.Components.Forms;
+using Domain.Dto.Shop;
 
 namespace SekeAmir.Web.Controllers
 {
@@ -12,12 +15,12 @@ namespace SekeAmir.Web.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            var res = await mediator.Send(new GetCategoryWithProductsRequest());
-            if (res.ErrorId < 0)
+            var res = await mediator.Send(new GetCategoryWithProductsRequest { inputType=Domain.InputType.api});
+            if (res.ErrorId != 0)
             {
-                // TODO : Add Log Here
+                var obj = res.Result as IEnumerable<ShowAllPricesVM>;
             }
-
+           
             var viewModel = new HomeViewModel
             {
                 CompanyName = "سکه صراف امیر",

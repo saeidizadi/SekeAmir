@@ -1,3 +1,4 @@
+using Application.Configurations;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Persistence.Configurations;
 
@@ -5,7 +6,7 @@ using Persistence.Configurations;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
 builder.Services.ConfigurePersistenceServices(builder.Configuration);
-
+builder.Services.ConfigureApplicationServices();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();

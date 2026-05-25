@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain;
+using Domain.Dto.Shop;
 using Domain.Shop;
 
 namespace Application.Contracts.Shop
@@ -15,5 +17,6 @@ namespace Application.Contracts.Shop
         Task<IEnumerable<ProductPrice>> GetPriceByProdictId(int ProductId);
 
         Task<bool> InsertPrice(ProductPrice price);
+        Task<IEnumerable<ShowAllPricesVM>> showAllPrices(InputType inputType);
     }
 }
