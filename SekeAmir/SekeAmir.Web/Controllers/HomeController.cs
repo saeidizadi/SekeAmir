@@ -4,7 +4,6 @@ using SekeAmir.Web.Models;
 using System.Diagnostics;
 using Application.Features.Category.Request.Queries;
 using MediatR;
-using Domain.Shop;
 using Microsoft.AspNetCore.Components.Forms;
 using Domain.Dto.Shop;
 
@@ -16,38 +15,22 @@ namespace SekeAmir.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var res = await mediator.Send(new GetCategoryWithProductsRequest { inputType=Domain.InputType.api});
-            if (res.ErrorId != 0)
+            if (res.ErrorId < 0)
             {
-                var obj = res.Result as IEnumerable<ShowAllPricesVM>;
+                return NotFound();
             }
-           
             var viewModel = new HomeViewModel
             {
                 CompanyName = "سکه صراف امیر",
-                CurrentTheme =  "gold",
+                CurrentTheme = "gold",
                 YearsOfExperience = 20,
                 HappyCustomers = 50000,
                 SuccessfulTransactions = 1000000,
 
-                // نرخ‌های Hero
+                // نرخ‌های Hero (فعلاً استاتیک - میتونی بعداً از دیتای جدید هم بدست بیاری)
                 HeroDollarPrice = "۵۸,۵۰۰",
                 HeroCoinPrice = "۳۲,۰۰۰,۰۰۰",
                 HeroGoldPrice = "۲,۸۵۰,۰۰۰",
-
-                // نرخ ارز
-                CurrencyRates = GetCurrencyRates(),
-
-                // شمش طلا
-                GoldBarRates = GetGoldBarRates(),
-
-                // سکه طلا
-                CoinRates = GetCoinRates(),
-
-                // طلای آبشده
-                MeltedGoldRates = GetMeltedGoldRates(),
-
-                // سکه پارسیان
-                ParsianCoinRates = GetParsianCoinRates(),
 
                 // ویژگی‌ها
                 Features = GetFeatures(),
@@ -56,8 +39,112 @@ namespace SekeAmir.Web.Controllers
                 Contact = GetContactInfo()
             };
 
+            var products = res.Result as IEnumerable<ShowAllPricesVM>;
+
+            if (products != null && products.Any())
+            {
+                // پر کردن نرخ ارزها (مثلاً CategoryId = 1)
+                viewModel.CurrencyRates = products
+                    .Where(p => p.CategoryId == 1)
+                    .Select(p => new CurrencyRate
+                    {
+                        Name = p.ProductTitle,
+                        NameEn = GetEnglishName(p.ProductTitle),
+                        FlagCode = GetFlagCode(p.ProductTitle),
+                        BuyPrice = (long)p.FinalBuyPrice,
+                        SellPrice = (long)p.FinalSellPrice,
+                        ChangePercent = p.buyChange,
+                        IsUp = p.buyChange >= 0
+                    }).ToList();
+
+                // پر کردن شمش طلا (CategoryId = 2)
+                viewModel.GoldBarRates = products
+                    .Where(p => p.CategoryId == 3)
+                    .Select(p => new GoldBarRate
+                    {
+                        Weight = p.ProductTitle,
+                        Price = (long)p.FinalSellPrice,
+                        ChangePercent = p.SellChange,
+                        IsUp = p.SellChange >= 0
+                    }).ToList();
+
+                // پر کردن سکه طلا (CategoryId = 3)
+                viewModel.CoinRates = products
+                    .Where(p => p.CategoryId == 4)
+                    .Select(p => new CoinRate
+                    {
+                        Name = p.ProductTitle,
+                        BuyPrice = (long)p.FinalBuyPrice,
+                        SellPrice = (long)p.FinalSellPrice,
+                        ChangePercent = p.buyChange,
+                        IsUp = p.buyChange >= 0
+                    }).ToList();
+
+                // پر کردن طلای آبشده (CategoryId = 4)
+                viewModel.MeltedGoldRates = products
+                    .Where(p => p.CategoryId == 5)
+                    .Select(p => new MeltedGoldRate
+                    {
+                        Carat = p.ProductTitle,
+                        BuyPrice = (long)p.FinalBuyPrice,
+                        SellPrice = (long)p.FinalSellPrice,
+                        ChangePercent = p.buyChange,
+                        IsUp = p.buyChange >= 0
+                    }).ToList();
+
+                // پر کردن سکه پارسیان (CategoryId = 6)
+                viewModel.ParsianCoinRates = products
+                    .Where(p => p.CategoryId == 5)
+                    .Select(p => new ParsianCoinRate
+                    {
+                        Weight = p.ProductTitle,
+                        BuyPrice = (long)p.FinalBuyPrice,
+                        SellPrice = (long)p.FinalSellPrice,
+                        ChangePercent = p.buyChange,
+                        IsUp = p.buyChange >= 0
+                    }).ToList();
+            }
+            else
+            {
+                // اگه دیتایی نبود، از دیتای استاتیک استفاده کن
+                SetDefaultRates(viewModel);
+            }
+
             return View(viewModel);
         }
+        private void SetDefaultRates(HomeViewModel viewModel)
+        {
+            viewModel.CurrencyRates = GetCurrencyRates();
+            viewModel.GoldBarRates = GetGoldBarRates();
+            viewModel.CoinRates = GetCoinRates();
+            viewModel.MeltedGoldRates = GetMeltedGoldRates();
+            viewModel.ParsianCoinRates = GetParsianCoinRates();
+        }
+
+        // متدهای کمکی
+        private string GetEnglishName(string persianName)
+        {
+            return persianName switch
+            {
+                "دلار آمریکا" => "USD",
+                "یورو" => "EUR",
+                "پوند انگلیس" => "GBP",
+                "درهم امارات" => "AED",
+                _ => ""
+            };
+        }
+
+        private string GetFlagCode(string persianName)
+        {
+            return persianName switch
+            {
+                "دلار آمریکا" => "us",
+                "یورو" => "eu",
+                "پوند انگلیس" => "gb",
+                "درهم امارات" => "ae",
+                _ => ""
+            };
+        }   
         private List<CurrencyRate> GetCurrencyRates()
         {
             return new List<CurrencyRate>
