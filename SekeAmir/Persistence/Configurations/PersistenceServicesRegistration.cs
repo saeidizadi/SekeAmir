@@ -38,6 +38,7 @@ public static class PersistenceServicesRegistration
         services.AddScoped<IMaster<UserRole>, MasterServices<UserRole>>();
 
         #endregion
+
         #region Shop
         services.AddScoped<ICategory, CategoryServices>();
         services.AddScoped<IProduct, ProductServices>();
