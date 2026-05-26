@@ -44,6 +44,9 @@ namespace SekeAmir.Web.Areas.Admin.Controllers
             return View(new EditProductVm()
             {
                 Id = Id,
+                InputType=obj.InputType,
+                IsExchange=obj.IsExchange
+                
             });
         }
         [HttpPost]
@@ -66,8 +69,11 @@ namespace SekeAmir.Web.Areas.Admin.Controllers
                     TempData[Error] = "آپلود تصویر با خطا مواجه شد";
                     return View(model);
                 }
+                old.iconImage = model.ImageAddress;
             }
-            old.iconImage = model.ImageAddress;
+        
+            old.IsExchange = model.IsExchange;
+            old.InputType = model.InputType;
             var res = await _product.updateProduct(old);
             if (res)
             {

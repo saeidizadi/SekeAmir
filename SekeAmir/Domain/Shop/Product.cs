@@ -19,6 +19,9 @@ namespace Domain.Shop
         public string unit { get; set; }
         public string nickName { get; set; }
         public string iconImage { get; set; }
+
+        public bool IsExchange { get; set; }
+        public InputType InputType { get; set; }
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public Category Category{ get; set; }

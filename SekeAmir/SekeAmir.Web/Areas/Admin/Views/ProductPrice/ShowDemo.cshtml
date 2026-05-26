@@ -26,6 +26,8 @@
                 <th>@Html.DisplayNameFor(Model => Model.BaseBuyPrice)</th>
                 <th>@Html.DisplayNameFor(Model => Model.buyChange)</th>
                 <th>@Html.DisplayNameFor(Model => Model.FinalBuyPrice)</th>
+                <th>@Html.DisplayNameFor(Model => Model.inputType)</th>
+                <th>@Html.DisplayNameFor(Model => Model.IsExchange)</th>
             </tr>
 
         </thead>
@@ -45,6 +47,29 @@
                     <th>@Html.DisplayFor(Model => item.BaseBuyPrice)</th>
                     <th>@Html.DisplayFor(Model => item.buyChange)</th>
                     <th>@Html.DisplayFor(Model => item.FinalBuyPrice)</th>
+                        <td>
+                            @switch (item.inputType)
+                            {
+                                case Domain.InputType.api:
+                                    <label>وب سرویس</label>
+                                    break;
+                                case Domain.InputType.local:
+                                    <label>دستی</label>
+                                    break;
+                                default:
+                                    break;
+                            }
+                        </td>
+                        <td>
+                            @if (item.IsExchange)
+                            {
+                                <label style="color:blue">قابل معامله</label>
+                            }
+                            else
+                            {
+                                <label style="color:red">غیرقابل معامله</label>
+                            }
+                        </td>
 
 
 

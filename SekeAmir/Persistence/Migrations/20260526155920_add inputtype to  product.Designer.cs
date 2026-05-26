@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Configurations;
 
@@ -11,9 +12,11 @@ using Persistence.Configurations;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(SekeAminContext))]
-    partial class SekeAminContextModelSnapshot : ModelSnapshot
+    [Migration("20260526155920_add inputtype to  product")]
+    partial class addinputtypetoproduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

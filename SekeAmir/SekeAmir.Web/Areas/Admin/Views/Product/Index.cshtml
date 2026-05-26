@@ -1,59 +1,83 @@
 ﻿@using Domain.Shop
 @model IEnumerable<Product>
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
 <div class="card card-primary  text-center">
-    <div class="card-header">
-  محصولات
+	<div class="card-header">
+		محصولات
 
-    </div>
+	</div>
 
-    <div class="card-body">
-        <div class="d-flex justify-content-start">
-
-    
-        <a class="btn btn-success" asp-action="create">بروزرسانی</a>
-        </div>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ردیف</th>
-                    <th>عنوان</th>
-                    <th>واحد</th>
-                    <th>نام</th>
-                    <th>تصویر</th>
-                    <th>دسته بندی</th>
-                </tr>
-
-            </thead>
-            <tbody>
-                @{
-                    int i = 1;
-                }
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@i </td>
-                        <td>@item.title </td>
-                        <td>@item.unit </td>
-                        <td>@item.nickName </td>
-                        <td><img src="@item.iconImage" style="width:50px" />  </td>
-                        <td>@item.Category.title </td>
-
-                        <td><a asp-action="Edit" asp-route-Id="@item.id" class="btn btn-info">ویرایش</a></td>
+	<div class="card-body">
+		<div class="d-flex justify-content-start">
 
 
-                    </tr>
-                    i = i + 1;
-                }
+			<a class="btn btn-success" asp-action="create">بروزرسانی</a>
+		</div>
 
-            </tbody>
-        </table>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ردیف</th>
+					<th>عنوان</th>
+					<th>واحد</th>
+					<th>نام</th>
+					<th>تصویر</th>
+					<th>دسته بندی</th>
+					<td>منبع نمایش</td>
+					<td>قابل معامله</td>
+				</tr>
 
-    </div>
+			</thead>
+			<tbody>
+				@{
+					int i = 1;
+				}
+				@foreach (var item in Model)
+				{
+					<tr>
+						<td>@i </td>
+						<td>@item.title </td>
+						<td>@item.unit </td>
+						<td>@item.nickName </td>
+						<td><img src="@item.iconImage" style="width:50px" />  </td>
+						<td>@item.Category.title </td>
+						<td>
+							@switch (item.InputType)
+							{
+								case Domain.InputType.api:
+									<label>وب سرویس</label>
+									break;
+								case Domain.InputType.local:
+									<label>دستی</label>
+									break;
+								default:
+									break;
+							}
+						</td>
+
+						<td>@if (item.IsExchange)
+							{
+								<label style="color:blue">قابل معامله</label>
+							}
+							else
+							{
+								<label style="color:red">غیرقابل معامله</label>
+							}
+							</td>
+						<td><a asp-action="Edit" asp-route-Id="@item.id" class="btn btn-info">ویرایش</a></td>
+
+
+					</tr>
+					i = i + 1;
+				}
+
+			</tbody>
+		</table>
+
+	</div>
 
 
 </div>

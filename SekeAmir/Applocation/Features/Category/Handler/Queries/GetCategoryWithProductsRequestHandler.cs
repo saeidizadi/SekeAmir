@@ -11,7 +11,7 @@ public class GetCategoryWithProductsRequestHandler(IProductPrice productPriceRep
 {
     public async Task<ServiceMessage> Handle(GetCategoryWithProductsRequest request, CancellationToken cancellationToken)
     {
-        var Product = await productPriceRepository.showAllPrices(InputType.api);
+        var Product = await productPriceRepository.ShowAllPrices();
         return ResponseManager.CustomResponse(1, "ok", Product);
     }
 }

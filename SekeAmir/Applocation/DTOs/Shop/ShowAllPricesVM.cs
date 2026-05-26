@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain;
 
 namespace Application.DTOs.Shop
 {
@@ -30,5 +31,9 @@ namespace Application.DTOs.Shop
         public decimal buyChange { get; set; }
         [DisplayName("قیمت نهایی خرید")]
         public decimal FinalBuyPrice { get; set; }
+        [DisplayName("منبع نمایش")]
+        public InputType inputType{ get; set; }
+        [DisplayName("وضعیت معامله")]
+        public bool IsExchange { get; set; }
     }
 }

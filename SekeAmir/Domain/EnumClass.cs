@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -94,7 +95,9 @@ namespace Domain
     }
     public enum InputType
     {
-        api=0,
-        local=1
+        [Display(Name = "وب سرویس")]
+        api =0,
+        [Display(Name = "دستی")]
+        local =1
     }
 }
