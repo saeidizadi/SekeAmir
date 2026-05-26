@@ -1,10 +1,15 @@
-﻿using System.Threading.Tasks;
-using Application.Contracts.Shop;
+﻿using Application.Contracts.Shop;
+using Application.DTOs.Shop;
+using Application.Features.Category.Request.Queries;
 using Domain.Shop;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
 using SekeAmir.Web.Base;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace SekeAmir.Web.Areas.Admin.Controllers
 {
@@ -14,17 +19,21 @@ namespace SekeAmir.Web.Areas.Admin.Controllers
     {
         private readonly IProductPrice _productPrice;
         private readonly IProduct _product;
+        private readonly IMediator _mediator;
 
-        public ProductPriceController(IProductPrice productPrice, IProduct product)
+        public ProductPriceController(IProductPrice productPrice, IProduct product,IMediator mediator)
         {
             _productPrice = productPrice;
             _product = product;
+            _mediator = mediator;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? productId, int pageId=1)
         {
+            Expression<Func<ProductPrice, bool>> Filter = x => !productId.HasValue || x.ProductId == productId;
+            var model = await _productPrice.GetProductPricesPagingAsync(pageId, 50, productId);
             ViewBag.Product = new SelectList(await _product.GetAll(), "id", "title");
-            return View(await _productPrice.GetAllPrice());
+            return View(model);
         }
         public async Task<IActionResult> GetData()
         {
@@ -62,10 +71,23 @@ namespace SekeAmir.Web.Areas.Admin.Controllers
             TempData[Error] = ErrorMessage;
             return RedirectToAction("Index");
         }
-        public IActionResult GetPricesByProduct(int ProductId)
+        public async Task<IActionResult> GetPricesByProduct(int? ProductId,int pageId)
         {
-            var model = _productPrice.GetPriceByProdictId(ProductId);
+            Expression<Func<ProductPrice, bool>> Filter = x => !ProductId.HasValue || x.ProductId == ProductId;
+            var model = await _productPrice.GetProductPricesPagingAsync(pageId, 50, ProductId);
             return PartialView("_GetProductPriceByProductId", model);
+        }
+        public async Task<IActionResult> ShowDemo()
+        {
+            var obj =await _mediator.Send(new GetCategoryWithProductsRequest { });
+            if(obj.ErrorId>0)
+            {
+               var data = obj.Result;
+                return View(data);
+
+            }
+            TempData[Error] = obj.ErrorTitle;
+            return View(new List<ShowAllPricesVM>());
         }
     }
 }

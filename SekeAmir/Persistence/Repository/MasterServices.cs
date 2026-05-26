@@ -1,5 +1,6 @@
 ﻿using Application.Contracts.Repository;
 using Dapper;
+using Domain.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -84,15 +85,47 @@ namespace Persistence.Repository
             }
         }
 
-        public async Task<IEnumerable<T>> GetPagingAsync(int page, int pageSize)
+        public async Task<PaginResult<T>> GetPagedAsync<TKey>(
+          int page,
+          int pageSize,
+          Expression<Func<T, TKey>> orderBy,
+          Expression<Func<T, bool>> filter = null, // پارامتر شرط (اختیاری)
+          bool ascending = false, params Expression<Func<T, object>>[] includes)
         {
+            IQueryable<T> query = _ctx.Set<T>().AsNoTracking();
 
-            int skipRows = (page - 1) * pageSize;
-            return await _ctx.Set<T>()
-     .Skip(skipRows)
-     .Take(pageSize)
-     .ToListAsync();
+         
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            int totalCount = await query.CountAsync();
+            int pageCount = (int)Math.Ceiling(totalCount / (double)pageSize);
 
+            // ۳. اعمال مرتب‌سازی
+            query = ascending ? query.OrderBy(orderBy) : query.OrderByDescending(orderBy);
+
+            // ۴. صفحه‌بندی و اجرای کوئری
+            var data = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return new PaginResult<T>
+            {
+                Entities = data,
+                CurrentPage = page,
+                PageCount = pageCount,
+                PageSize = pageSize,
+                TotalEntityCount = totalCount
+            };
         }
 
         public Task<int> GetNumberFromDatabaseAsync(string spName, object[] parameters)
@@ -170,7 +203,7 @@ namespace Persistence.Repository
 
                 await _ctx.SaveChangesAsync();
                 return dbEntity;
-            
+
 
             }
             catch (Exception e)

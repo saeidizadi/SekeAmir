@@ -1,5 +1,4 @@
-﻿const { default: ur } = require("../../Common/ckeditor5/translations/ur");
-
+﻿
 
 
 function GetProductPriceByProductId(element) {
@@ -13,10 +12,10 @@ function GetProductPriceByProductId(element) {
     $.ajax({
         url: url, // نام کنترلر و اکشن را چک کنید
         type: 'GET',
-        data: { ProductId: productId },
+        data: { ProductId: productId, pageId: 1 },
         success: function (result) {
             // نتیجه مستقیماً کدهای HTML تولید شده توسط PartialView است
-            $("#priceTableBody").html(result);
+            $("#PriceTableBody").html(result);
         }
     });
 }

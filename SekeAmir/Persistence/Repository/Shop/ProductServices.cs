@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Application.Contracts.Repository;
 using Application.Contracts.Shop;
 using Application.DTOs.Shop;
+using Domain.Common;
 using Domain.Shop;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Migrations;
@@ -40,6 +41,8 @@ namespace Persistence.Repository.Shop
             var obj = await _master.GetAllEfAsync(a => a.id == Id);
             return obj.FirstOrDefault();
         }
+
+ 
 
         public async Task<Product> InsertProduct(Product product)
         {

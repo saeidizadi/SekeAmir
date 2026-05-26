@@ -1,15 +1,18 @@
 ﻿
+using Application.Contracts.main;
 using Application.Contracts.Repository;
 using Application.Contracts.Shop;
 using Application.Contracts.Users;
 using Application.DTOs.Shop;
 using Domain.Account;
 using Domain.Account.Permission;
+using Domain.Main;
 using Domain.Shop;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Repository;
+using Persistence.Repository.Main;
 using Persistence.Repository.Shop;
 using Persistence.Repository.Users;
 using System.ComponentModel.Design;
@@ -41,6 +44,8 @@ public static class PersistenceServicesRegistration
 
         #endregion
 
+        services.AddScoped<IMaster<Setting>, MasterServices<Setting>>();
+        services.AddScoped<ISetting, SettingServices>();
         #region Shop
         services.AddScoped<ICategory, CategoryServices>();
         services.AddScoped<IProduct, ProductServices>();

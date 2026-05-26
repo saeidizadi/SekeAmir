@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Configurations;
 
@@ -11,9 +12,11 @@ using Persistence.Configurations;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(SekeAminContext))]
-    partial class SekeAminContextModelSnapshot : ModelSnapshot
+    [Migration("20260526073029_add setting")]
+    partial class addsetting
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,8 +189,14 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("HappyCustomers")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Phone1")
                         .IsRequired()
@@ -199,6 +208,9 @@ namespace Persistence.Migrations
 
                     b.Property<int>("SuccessfulTransactions")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdateDateTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("WorkingHours")
                         .IsRequired()

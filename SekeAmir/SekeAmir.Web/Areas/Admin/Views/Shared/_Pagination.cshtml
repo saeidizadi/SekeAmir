@@ -1,0 +1,52 @@
+﻿@using Domain.Common
+@model dynamic
+@{
+    int pageId = Model.CurrentPage;
+    int totalPages = Model.PageCount;
+    int startPage = Math.Max(1, pageId - 2);
+    int endPage = Math.Min(totalPages, pageId + 2);
+
+    var query = new Dictionary<string, string>();
+    foreach (var q in Context.Request.Query)
+    {
+        query[q.Key] = q.Value;
+    }
+}
+
+<nav>
+    <ul class="pagination justify-content-center">
+
+        @{ query["pageId"] = (pageId - 1).ToString(); }
+        <li class="page-item @(pageId == 1 ? "disabled" : "")">
+            <a class="page-link" href="@Url.Action(ViewContext.RouteData.Values["action"].ToString(), query)">قبلی</a>
+        </li>
+
+        @if (startPage > 1)
+        {
+            query["pageId"] = "1";
+            <li class="page-item"><a class="page-link" href="@Url.Action(ViewContext.RouteData.Values["action"].ToString(), query)">1</a></li>
+            <li class="page-item disabled"><span class="page-link">…</span></li>
+        }
+
+        @for (int i = startPage; i <= endPage; i++)
+        {
+            query["pageId"] = i.ToString();
+            <li class="page-item @(i == pageId ? "active" : "")">
+                <a class="page-link" href="@Url.Action(ViewContext.RouteData.Values["action"].ToString(), query)">@i</a>
+            </li>
+        }
+
+        @if (endPage < totalPages)
+        {
+            <li class="page-item disabled"><span class="page-link">…</span></li>
+            query["pageId"] = totalPages.ToString();
+            <li class="page-item"><a class="page-link" href="@Url.Action(ViewContext.RouteData.Values["action"].ToString(), query)">@totalPages</a></li>
+        }
+
+        @{ query["pageId"] = (pageId + 1).ToString(); }
+        <li class="page-item @(pageId == totalPages ? "disabled" : "")">
+            <a class="page-link" href="@Url.Action(ViewContext.RouteData.Values["action"].ToString(), query)">بعدی</a>
+        </li>
+
+    </ul>
+</nav>

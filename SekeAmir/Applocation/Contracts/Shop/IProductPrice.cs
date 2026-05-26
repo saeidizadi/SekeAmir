@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Application.DTOs.Shop;
+using Domain;
+using Domain.Common;
+using Domain.Shop;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Application.DTOs.Shop;
-using Domain;
-using Domain.Shop;
 
 namespace Application.Contracts.Shop
 {
@@ -19,5 +20,7 @@ namespace Application.Contracts.Shop
         Task<bool> InsertPrice(ProductPrice price);
         Task<IEnumerable<ShowAllPricesVM>> showAllPrices(InputType inputType);
         Task<List<ShowAllPricesVM>> ShowAllPrices();
+        Task<PaginResult<ProductPrice>> GetProductPricesPagingAsync(int pageId, int take, int? productId = null);
+
     }
 }

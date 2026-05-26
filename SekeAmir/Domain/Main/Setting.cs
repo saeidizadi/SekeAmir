@@ -9,30 +9,29 @@ using System.Threading.Tasks;
 
 namespace Domain.Main
 {
-    public class Setting:BaseEntity<int>
+    public class Setting
     {
 
-       
-        public string Logo { get; set; }
-        public string SiteName { get; set; }
-        public string MapAddress { get; set; }
+        public int Id { get; set; }
+        [DisplayName("نام شرکت")]
+        public string CompanyName { get; set; }
+        [DisplayName("قالب")]
+        public string CurrentTheme { get; set; }
+        [DisplayName("تجربه")]
+        public int YearsOfExperience { get; set; }
+        [DisplayName("کاربران")]
+        public int HappyCustomers { get; set; }
+        [DisplayName("تراکنش موفق")]
+        public int SuccessfulTransactions { get; set; }
+        [DisplayName("آدرس")]
         public string Address { get; set; }
-        public string Email { get; set; }
-        public string Mobile { get; set; }
-        public string WorkTime { get; set; }
-        public string Number1 { get; set; }
-        public string Number2 { get; set; }
-        public string FooterDescript { get; set; }
-  
-        public string MainBanner { get; set; }
-        public string MainBannerAddress { get; set; }
-        public string IconFirst { get; set; }
-        public string IconFirstLink { get; set; }
-        public string IconSecond { get; set; }
-        public string IconSecondLink { get; set; }
-        public string IconThird { get; set; }
-        public string IconThirdLink { get; set; }
-        public bool ShowBlog { get; set; } = false;
+        [DisplayName("شماره تماس")]
+        public string Phone1 { get; set; }
+        [DisplayName("شماره تماس")]
+        public string Phone2 { get; set; }
+        [DisplayName("ساعت کار")]
+        public string WorkingHours { get; set; }
+      
 
     }
 }

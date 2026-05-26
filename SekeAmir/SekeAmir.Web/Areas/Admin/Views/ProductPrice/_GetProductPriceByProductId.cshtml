@@ -1,0 +1,28 @@
+﻿@using Domain.Common
+@using Domain.Shop
+@using Persistence.Extention
+@model PaginResult<ProductPrice>
+
+@{
+    // محاسبه شماره ردیف شروع برای هر صفحه (مثلا صفحه 2 با pageSize 10 از ردیف 11 شروع می‌شود)
+    int i = ((Model.CurrentPage - 1) * Model.PageSize) + 1;
+}
+
+@foreach (var item in Model.Entities)
+{
+    <tr>
+        <td>@i</td>
+        <td>@(item.Product?.Category?.title ?? "---")</td>
+        <td>@(item.Product?.title ?? "---")</td>
+        <td>@item.BuyPrice.ToString("N0")</td> <!-- فرمت سه‌رقم سه‌رقم -->
+        <td>@item.SellPrice.ToString("N0")</td>
+        <td>@item.Change</td>
+        <td>@item.CreateAt.ToPersianLong()</td>
+        <td>
+            @(item.inputType == Domain.InputType.api ? "وب سرویس" : "دستی")
+        </td>
+    </tr>
+    i++;
+}
+
+

@@ -1,16 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Application.Contracts.Repository;
+﻿using Application.Contracts.Repository;
 using Application.Contracts.Shop;
 using Application.DTOs.Shop;
 using Dapper;
 using Domain;
+using Domain.Common;
 using Domain.Shop;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Persistence.Repository.Shop
 {
@@ -108,7 +110,7 @@ namespace Persistence.Repository.Shop
 
         public async Task<IEnumerable<ProductPrice>> GetPriceByProdictId(int ProductId)
         {
-            return await _master.GetAllAsQueryable(a => a.ProductId == ProductId).Include(a => a.Product).ToListAsync();
+            return await _master.GetAllAsQueryable(a => a.ProductId == ProductId).Include(a => a.Product).ThenInclude(a=>a.Category).OrderByDescending(a=>a.CreateAt).ToListAsync();
         }
 
         public async Task<bool> InsertPrice(ProductPrice price)
@@ -131,6 +133,22 @@ namespace Persistence.Repository.Shop
             //dynamicParameters.Add("inputType", inputType, System.Data.DbType.Int32);
             var obj = await _Vm.GetAllAsync("showAllPrices", dynamicParameters);
             return obj.ToList();
+        }
+        public async Task<PaginResult<ProductPrice>> GetProductPricesPagingAsync(int pageId, int take, int? productId = null)
+        {
+            Expression<Func<ProductPrice, bool>> filter = x => !productId.HasValue || x.ProductId == productId;
+            return await _master.GetPagedAsync(
+          pageId,
+          take,
+          orderBy: p => p.CreateAt,
+          filter: filter,
+          ascending: false,
+          includes:new Expression<Func<ProductPrice, object>>[]
+          {
+              p=>p.Product,
+              p=>p.Product.Category
+          }
+      );
         }
     }
 }

@@ -108,8 +108,9 @@ namespace Persistence.Repository.Users
 
         public async Task<IEnumerable<ShowUserBrifViewModel>> GetPaggingUserAsync(int Page, int pagesize)
         {
-            var obj = await _User.GetPagingAsync(Page, pagesize);
-            return obj.Select(a => new ShowUserBrifViewModel() { Email = a.Email, UserName = a.UserName, UserId = a.UserId, FullName = a.FullName });
+            //var obj = await _User.GetPagingAsync(Page, pagesize);
+            //return obj.Select(a => new ShowUserBrifViewModel() { Email = a.Email, UserName = a.UserName, UserId = a.UserId, FullName = a.FullName });
+            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<ShowUserBrifViewModel>> GetAllAdminAsync()

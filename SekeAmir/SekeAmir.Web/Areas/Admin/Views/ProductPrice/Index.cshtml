@@ -1,6 +1,7 @@
-﻿@using Domain.Shop
+﻿@using Domain.Common
+@using Domain.Shop
 @using Persistence.Extention
-@model IEnumerable<ProductPrice>
+@model PaginResult<Domain.Shop.ProductPrice>
 @{
     ViewData["Title"] = "Index";
 }
@@ -52,7 +53,7 @@
 
     </div>
 
-
+    <partial name="_Pagination" model="Model" />
 </div>
 @section Scripts {
     <script src="~/js/admin/SearchItem.js"></script>

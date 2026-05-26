@@ -1,0 +1,61 @@
+﻿@using Application.DTOs.Shop
+@model IEnumerable<ShowAllPricesVM>
+@{
+    ViewData["Title"] = "ShowDemo";
+}
+
+
+<div class="card card-primary  text-center">
+<div class="card-header">
+    پیش نمایش
+
+</div>
+
+<div class="card-body">
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ردیف</th>
+                <th>@Html.DisplayNameFor(Model=>Model.CategoryTitle)</th>
+                <th>@Html.DisplayNameFor(Model => Model.ProductTitle)</th>
+                <th>@Html.DisplayNameFor(Model => Model.BaseSellPrice)</th>
+                <th>@Html.DisplayNameFor(Model => Model.SellChange)</th>
+                <th>@Html.DisplayNameFor(Model => Model.FinalSellPrice)</th>
+                <th>@Html.DisplayNameFor(Model => Model.BaseBuyPrice)</th>
+                <th>@Html.DisplayNameFor(Model => Model.buyChange)</th>
+                <th>@Html.DisplayNameFor(Model => Model.FinalBuyPrice)</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@i </td>
+                    <th>@Html.DisplayFor(Model => item.CategoryTitle)</th>
+                    <th>@Html.DisplayFor(Model => item.ProductTitle)</th>
+                    <th>@Html.DisplayFor(Model => item.BaseSellPrice)</th>
+                    <th>@Html.DisplayFor(Model => item.SellChange)</th>
+                    <th>@Html.DisplayFor(Model => item.FinalSellPrice)</th>
+                    <th>@Html.DisplayFor(Model => item.BaseBuyPrice)</th>
+                    <th>@Html.DisplayFor(Model => item.buyChange)</th>
+                    <th>@Html.DisplayFor(Model => item.FinalBuyPrice)</th>
+
+
+
+                </tr>
+                i = i + 1;
+            }
+
+        </tbody>
+    </table>
+
+</div>
+
+
+</div>

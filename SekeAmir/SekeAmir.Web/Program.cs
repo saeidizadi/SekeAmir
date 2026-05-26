@@ -1,10 +1,12 @@
 using Application.Configurations;
+using Application.Contracts.main;
 using AutoMapper;
+using Domain.Main;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Persistence.Configurations;
+using SekeAmir.Web.Jobs.Configurations;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
-using SekeAmir.Web.Jobs.Configurations;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,11 +49,20 @@ builder.Services.AddAuthentication(option =>
     }
     else
     {
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-        options.Cookie.Domain = ".drmoradi-diet.com";
+        options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+        options.Cookie.Domain = ".sekeamir.com";
     }
 });
+#region Setting
+var tempProvider = builder.Services.BuildServiceProvider();
+var settingService = tempProvider.GetRequiredService<ISetting>();
+var settingData = await settingService.GetSettingAsync();
 
+builder.Services.AddSingleton(new SiteSettingCache
+{
+    Setting = settingData
+});
+#endregion
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

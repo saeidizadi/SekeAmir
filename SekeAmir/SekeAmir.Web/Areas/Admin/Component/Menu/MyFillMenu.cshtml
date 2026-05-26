@@ -7,32 +7,32 @@
         <li class="nav-item has-treeview @(item.Descript == "سفارش غذا" ? "menu-open" : "")">
 
 
-                <a href="#" class="nav-link">
+            <a href="#" class="nav-link">
 
-                    <p>
-                        <i class="fa fa-archive nav-icon"></i>
-                            @item.Descript
-                            <img src="/Img/angle-left-svgrepo-com.svg" class="right" height="15" />
-                    </p>
-                </a>
+                <p>
+                    <i class="fa fa-archive nav-icon"></i>
+                    @item.Descript
+                    <img src="/Img/angle-left-svgrepo-com.svg" class="right" height="15" />
+                </p>
+            </a>
 
-                <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview">
                 @foreach (var itemDetail in Model.Where(p => p.ParentId == item.Id))
-                        {
-                        <li class="nav-item">
+                {
+                    <li class="nav-item">
 
-                            <a asp-action="@itemDetail.ActionName" asp-controller="@itemDetail.ControllerName" asp-area="@itemDetail.Area" class="nav-link">
+                        <a asp-action="@itemDetail.ActionName" asp-controller="@itemDetail.ControllerName" asp-area="@itemDetail.Area" class="nav-link">
 
 
-                                <p>@itemDetail.Descript </p>
-                            </a>
-                        </li>
-                        }
+                            <p>@itemDetail.Descript </p>
+                        </a>
+                    </li>
+                }
 
-                </ul>
-            </li>
+            </ul>
+        </li>
 
-            }
+    }
 
 </ul>
 
@@ -46,20 +46,20 @@
 
             <p>
                 <i class="fa fa-archive nav-icon"></i>
-               فروشگاه
+                فروشگاه
                 <img src="/Img/angle-left-svgrepo-com.svg" class="right" height="15" />
             </p>
         </a>
         <ul class="nav nav-treeview">
-           
-                <li class="nav-item">
 
-                    <a asp-action="Index" asp-controller="Category" asp-area="Admin" class="nav-link">
+            <li class="nav-item">
+
+                <a asp-action="Index" asp-controller="Category" asp-area="Admin" class="nav-link">
 
 
-                        <p>دسته بندی </p>
-                    </a>
-                </li>
+                    <p>دسته بندی </p>
+                </a>
+            </li>
             <li class="nav-item">
 
                 <a asp-action="Index" asp-controller="product" asp-area="Admin" class="nav-link">
@@ -81,11 +81,38 @@
                 <a asp-action="Index" asp-controller="changePrice" asp-area="Admin" class="nav-link">
 
 
-                    <p>تغغیرات قیمت  </p>
+                    <p>تغیرات قیمت  </p>
+                </a>
+            </li>
+            <li class="nav-item">
+
+                <a asp-action="ShowDemo" asp-controller="ProductPrice" asp-area="Admin" class="nav-link">
+
+
+                    <p>پیش نمایش قیمت  </p>
                 </a>
             </li>
         </ul>
-        </li>
+    </li>
+    <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
 
+            <p>
+                <i class="fa fa-archive nav-icon"></i>
+                سایت
+                <img src="/Img/angle-left-svgrepo-com.svg" class="right" height="15" />
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+
+            <li class="nav-item">
+
+                <a asp-action="Index" asp-controller="Setting" asp-area="Admin" class="nav-link">
+                    <p>تنظیمات</p>
+                </a>
+            </li>
+
+        </ul>
+    </li>
     <li class="text-center mt-5"><a class="text-center" href="/Logout"><img src="~/Img/power-button-svgrepo-com(1).svg" width="30" height="30" /></a></li>
 </ul>

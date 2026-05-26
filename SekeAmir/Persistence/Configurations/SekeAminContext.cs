@@ -1,6 +1,7 @@
 ﻿using System.Reflection.Emit;
 using Domain.Account;
 using Domain.Account.Permission;
+using Domain.Main;
 using Domain.Shop;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +14,7 @@ namespace Persistence.Configurations
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<RolePermission> RolePermission { get; set; }
 
-
+        public virtual DbSet<Setting> Settings{ get; set; }
 
 
         #region Shop

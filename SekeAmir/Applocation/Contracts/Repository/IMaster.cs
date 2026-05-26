@@ -1,11 +1,12 @@
 ﻿
+using Dapper;
+using Domain.Common;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Dapper;
 
 namespace Application.Contracts.Repository
 {
@@ -20,7 +21,7 @@ namespace Application.Contracts.Repository
 
         Task<IEnumerable<T>> GetAllAsync(string spName, DynamicParameters parameters);
         Task<IEnumerable<T>> GetAllAsync(string spName);
-        Task<IEnumerable<T>> GetPagingAsync(int Page, int pagesize);
+        Task<PaginResult<T>> GetPagedAsync<TKey>(int page,int pageSize,Expression<Func<T, TKey>> orderBy,Expression<Func<T, bool>> filter = null,bool ascending = false, params Expression<Func<T, object>>[] includes);
         Task<int> GetNumberFromDatabaseAsync(string spName, object[] parameters);
         Task<string> GetStringFromDatabaseAsync(string spName, DynamicParameters parameters);
         Task<T> InsertAsync(T Obj);
