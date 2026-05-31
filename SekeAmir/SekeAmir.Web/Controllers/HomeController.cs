@@ -34,12 +34,11 @@ namespace SekeAmir.Web.Controllers
                 HeroDollarPrice = ((double)products.FirstOrDefault(x => x.ProductId == 2).FinalSellPrice).Toman(),
                 HeroCoinPrice = ((double)products.FirstOrDefault(x => x.ProductId == 29).FinalSellPrice).Toman(),
                 HeroGoldPrice = ((double)products.FirstOrDefault(x => x.ProductId == 37).FinalSellPrice).Toman(),
-
                 // ویژگی‌ها
                 Features = GetFeatures(),
-
                 // اطلاعات تماس
-                Contact = await GetContactInfo()
+                Contact = await GetContactInfo(),
+                
             };
 
 
