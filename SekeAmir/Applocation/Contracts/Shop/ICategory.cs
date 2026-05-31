@@ -12,9 +12,9 @@ namespace Application.Contracts.Shop
         Task<bool> UpgradeCategory();
         Task<bool> IsExist(string Title);
         Task<Category> InsertCategory(Category category);
-        Task<Category> GetByApiId(int  apiId);
+        Task<Category?> GetByApiId(int apiId);
         Task<IEnumerable<Category>> GetAll();
-        Task<Category> GetById(int id);
+        Task<Category?> GetById(int id);
         Task<bool> UpdateCastegory(Category category);
     }
 }

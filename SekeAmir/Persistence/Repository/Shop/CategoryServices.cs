@@ -3,56 +3,43 @@ using Application.Contracts.Shop;
 using Application.DTOs.Shop;
 using Domain.Shop;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Configurations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Persistence.Repository.Shop
 {
-    public class CategoryServices : ICategory
+    public class CategoryServices(IMaster<Category> master) : ICategory
     {
-        private readonly IMaster<Category> _master;
-
-        public CategoryServices(IMaster<Category> master)
-        {
-            _master = master;
-        }
-
         public async Task<IEnumerable<Category>> GetAll()
         {
-            return await _master.GetAllEfAsync();
+            return await master.GetAllEfAsync();
         }
 
-        public async Task<Category> GetByApiId(int apiId)
+        public async Task<Category?> GetByApiId(int apiId)
         {
-            var obj= await _master.GetAllEfAsync(a => a.ApiId == apiId);
-            return obj?.FirstOrDefault();
+            var obj= await master.GetAllEfAsync(a => a.ApiId == apiId);
+            return obj.FirstOrDefault();
         }
 
-        public async Task<Category> GetById(int id)
+        public async Task<Category?> GetById(int id)
         {
-            var obj = await _master.GetAllEfAsync(a => a.id == id);
+            var obj = await master.GetAllEfAsync(a => a.id == id);
             return obj.FirstOrDefault() ;
         }
 
         public async Task<Category> InsertCategory(Category category)
         {
-            var obj = await _master.InsertAsync(category);
+            var obj = await master.InsertAsync(category);
             return obj ;
         }
 
-        public async Task<bool> IsExist(string Title)
+        public async Task<bool> IsExist(string title)
         {
-            return await _master.GetAllAsQueryable(a => a.title == Title).AnyAsync();
+            return await master.GetAllAsQueryable(a => a.title == title).AnyAsync();
         }
 
         public async Task<bool> UpdateCastegory(Category category)
         {
-        var obj= await _master.UpdateAsync(category);
+        var obj= await master.UpdateAsync(category);
             return obj!=null;
         }
 
@@ -79,7 +66,7 @@ namespace Persistence.Repository.Shop
                 // اگر نبود اضافه کن
                 if (!dbCategory)
                 {
-                    var newcategory = new Category
+                    var category = new Category
                     {
                         ApiId = apiCategory.id,
                         iconImage = apiCategory.iconImage,
@@ -87,7 +74,7 @@ namespace Persistence.Repository.Shop
                         description = apiCategory.description?.ToString(),
                         modifiedOn = apiCategory.modifiedOn
                     };
-                    var result = await InsertCategory(newcategory);
+                    var result = await InsertCategory(category);
                     if (result == null)
                     {
                         return false;

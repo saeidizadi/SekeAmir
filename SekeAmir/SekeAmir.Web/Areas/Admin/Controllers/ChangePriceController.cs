@@ -4,32 +4,22 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SekeAmir.Web.Base;
-using System.Threading.Tasks;
 
 namespace SekeAmir.Web.Areas.Admin.Controllers
 {
     [Area(AreaName.Admin)]
     [Authorize]
-    public class ChangePriceController : BaseController
+    public class ChangePriceController(IChangePrice price, IProduct product) : BaseController
     {
-        private readonly IChangePrice _changePrice;
-        private readonly IProduct _product;
-
-        public ChangePriceController(IChangePrice changePrice, IProduct product)
-        {
-            _changePrice = changePrice;
-            _product = product;
-        }
-
         public async Task<IActionResult> Index()
         {
-            var obj = await _changePrice.GetAllChangePrice();
+            var obj = await price.GetAllChangePrice();
             return View(obj);
         }
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            ViewBag.Product = new SelectList(await _product.GetAll(), "id", "title");
+            ViewBag.Product = new SelectList(await product.GetAll(), "id", "title");
             return View();
         }
         [HttpPost]
@@ -37,11 +27,11 @@ namespace SekeAmir.Web.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Product = new SelectList(await _product.GetAll(), "id", "title", changePrice.ProductId);
+                ViewBag.Product = new SelectList(await product.GetAll(), "id", "title", changePrice.ProductId);
                 return View(changePrice);
             }
             
-            var result = await _changePrice.InsertChange(changePrice);
+            var result = await price.InsertChange(changePrice);
             if (result)
             {
                 TempData[Success] = SuccessMessage;

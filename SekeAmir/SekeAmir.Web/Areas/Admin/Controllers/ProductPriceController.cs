@@ -6,38 +6,26 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis;
 using SekeAmir.Web.Base;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace SekeAmir.Web.Areas.Admin.Controllers
 {
     [Area(AreaName.Admin)]
     [Authorize]
-    public class ProductPriceController : BaseController
+    public class ProductPriceController(IProductPrice price, IProduct product, IMediator mediator)
+        : BaseController
     {
-        private readonly IProductPrice _productPrice;
-        private readonly IProduct _product;
-        private readonly IMediator _mediator;
-
-        public ProductPriceController(IProductPrice productPrice, IProduct product,IMediator mediator)
-        {
-            _productPrice = productPrice;
-            _product = product;
-            _mediator = mediator;
-        }
-
         public async Task<IActionResult> Index(int? productId, int pageId=1)
         {
-            Expression<Func<ProductPrice, bool>> Filter = x => !productId.HasValue || x.ProductId == productId;
-            var model = await _productPrice.GetProductPricesPagingAsync(pageId, 50, productId);
-            ViewBag.Product = new SelectList(await _product.GetAll(), "id", "title");
+            Expression<Func<ProductPrice, bool>> filter = x => !productId.HasValue || x.ProductId == productId;
+            var model = await price.GetProductPricesPagingAsync(pageId, 50, productId);
+            ViewBag.Product = new SelectList(await product.GetAll(), "id", "title");
             return View(model);
         }
         public async Task<IActionResult> GetData()
         {
-            if (await _productPrice.GetData())
+            if (await price.GetData())
             {
                 TempData[Success] = SuccessMessage;
                 return RedirectToAction("Index");
@@ -48,7 +36,7 @@ namespace SekeAmir.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Insert()
         {
-            ViewBag.Product = new SelectList(await _product.GetAll(), "id", "title");
+            ViewBag.Product = new SelectList(await product.GetAll(), "id", "title");
             return View();
         }
         [HttpPost]
@@ -56,13 +44,13 @@ namespace SekeAmir.Web.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Product = new SelectList(await _product.GetAll(), "id", "title", productPrice.ProductId);
+                ViewBag.Product = new SelectList(await product.GetAll(), "id", "title", productPrice.ProductId);
                 return View(productPrice);
             }
             productPrice.Change = 0;
             productPrice.inputType = Domain.InputType.local;
             productPrice.CreateAt = DateTime.Now;
-            var result = await _productPrice.InsertPrice(productPrice);
+            var result = await price.InsertPrice(productPrice);
             if (result)
             {
                 TempData[Success] = SuccessMessage;
@@ -71,15 +59,14 @@ namespace SekeAmir.Web.Areas.Admin.Controllers
             TempData[Error] = ErrorMessage;
             return RedirectToAction("Index");
         }
-        public async Task<IActionResult> GetPricesByProduct(int? ProductId,int pageId)
+        public async Task<IActionResult> GetPricesByProduct(int? productId,int pageId)
         {
-            Expression<Func<ProductPrice, bool>> Filter = x => !ProductId.HasValue || x.ProductId == ProductId;
-            var model = await _productPrice.GetProductPricesPagingAsync(pageId, 50, ProductId);
+            var model = await price.GetProductPricesPagingAsync(pageId, 50, productId);
             return PartialView("_GetProductPriceByProductId", model);
         }
         public async Task<IActionResult> ShowDemo()
         {
-            var obj =await _mediator.Send(new GetCategoryWithProductsRequest { });
+            var obj =await mediator.Send(new GetCategoryWithProductsRequest { });
             if(obj.ErrorId>0)
             {
                var data = obj.Result;
