@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SekeAmir.Web.Models;
 using System.Diagnostics;
+using Application.Contracts.main;
 using Application.Features.Category.Request.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Components.Forms;
@@ -11,7 +12,7 @@ using Application.DTOs.Shop;
 namespace SekeAmir.Web.Controllers
 {
     [AllowAnonymous]
-    public class HomeController(IMediator mediator) : Controller
+    public class HomeController(IMediator mediator, ISetting settingRepository) : Controller
     {
         public async Task<IActionResult> Index()
         {
@@ -38,7 +39,7 @@ namespace SekeAmir.Web.Controllers
                 Features = GetFeatures(),
 
                 // اطلاعات تماس
-                Contact = GetContactInfo()
+                Contact = await GetContactInfo()
             };
 
 
@@ -154,14 +155,15 @@ namespace SekeAmir.Web.Controllers
                 new() { Icon = "bi-headset", Title = "پشتیبانی ۲۴/۷", Description = "تیم پشتیبانی حرفه‌ای در تمام ساعات شبانه‌روز" }
             };
         }
-        private ContactInfo GetContactInfo()
+        private async Task<ContactInfo> GetContactInfo()
         {
+            var contactInfo = await settingRepository.GetSettingAsync();
             return new ContactInfo
             {
-                Address = "تهران، خیابان فردوسی، پلاک ۱۲۳",
-                Phone1 = "۰۲۱-۱۲۳۴۵۶۷۸",
-                Phone2 = "۰۹۱۲-۱۲۳۴۵۶۷",
-                WorkingHours = "شنبه تا پنجشنبه: ۹ صبح تا ۶ عصر"
+                Address = contactInfo.Address,
+                Phone1 = contactInfo.Phone1,
+                Phone2 = contactInfo.Phone2,
+                WorkingHours = contactInfo.WorkingHours
             };
         }
         #endregion
