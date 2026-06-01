@@ -15,6 +15,7 @@ public static class JobsServiceRegistration
         var every1MinutesCron = "0 0/1 * * * ?";        
         var every2MinutesCron = "* 0/2 * * * ?";
 		var every1HoursCron = "0 0 0/1 ? * * *";
+		var every2HoursCron = "0 0 0/2 ? * * *";
 
 		services.AddQuartz(q =>
 		{
@@ -24,7 +25,7 @@ public static class JobsServiceRegistration
 			q.AddTrigger(opts => opts
 				.ForJob(jobKey)
 				.WithIdentity("GetYaranPriceFromApiJob-trigger")
-				.WithCronSchedule(every1HoursCron)
+				.WithCronSchedule(every2HoursCron)
 			);
 		});
 
