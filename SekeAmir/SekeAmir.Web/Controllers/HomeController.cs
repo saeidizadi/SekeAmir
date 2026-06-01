@@ -95,7 +95,7 @@ namespace SekeAmir.Web.Controllers
 
                 // پر کردن سکه پارسیان (CategoryId = 6)
                 viewModel.ParsianCoinRates = products
-                    .Where(p => p.CategoryId == 5)
+                    .Where(p => p.CategoryId == 6)
                     .Select(p => new ParsianCoinRate
                     {
                         Weight = p.ProductTitle,
